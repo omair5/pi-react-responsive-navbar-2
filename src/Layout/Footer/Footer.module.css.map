@@ -1,0 +1,12 @@
+{
+    "version": 3,
+    "mappings": "AEAA,OAAO,CAAC,mFAAI;AAAZ,OAAO,CAAC,mFAAI;AFEZ,AAAA,cAAc,CAAC;EACX,gBAAgB,EEOF,OAAO;EFNrB,SAAS,EAAE,IAAI;EACf,OAAO,EAAE,IAAI;EACb,eAAe,EAAE,UAAU;EAC3B,KAAK,EAAE,KAAkB;EACzB,SAAS,EAAE,KAAK;EAChB,QAAQ,EAAE,MAAM;EAChB,OAAO,EAAE,QAAQ;CAUpB;;AAlBD,AAUI,cAVU,CAUV,QAAQ,CAAC;ECgBT,OAAO,EAAE,IAAI;EACb,WAAW,EAAE,MAAM;EACnB,eAAe,EAAE,MAAM;CDhBtB;;AAZL,AAcI,cAdU,CAcV,IAAI,CAAC;EACD,KAAK,EETM,OAAO;EFUlB,SAAS,EAAE,IAAI;CAClB;;AAEL,AAAA,WAAW,CAAC;EACR,OAAO,EAAE,IAAI;CAChB;;AAED,MAAM,CAAC,MAAM,MAAM,SAAS,EAAE,KAAK;EAC/B,AAAA,cAAc,CAAC;IACX,OAAO,EAAE,OAAO;GACnB",
+    "sources": [
+        "Footer.module.scss",
+        "../../Utils/_mixins.scss",
+        "../../Utils/_variables.scss",
+        "../../Utils/_variables.scss"
+    ],
+    "names": [],
+    "file": "Footer.module.css"
+}

@@ -1,0 +1,23 @@
+.gotoTop {
+    position: fixed;
+    bottom: 10px;
+    right: 5px;
+    padding: 5px;
+    cursor: pointer;
+    z-index: 1000;
+    animation: animate 1s infinite;
+    animation-direction: alternate-reverse;
+}
+
+.UpArrow {
+    color: rgb(59, 70, 86);
+}
+
+@keyframes animate {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1.06);
+    }
+}

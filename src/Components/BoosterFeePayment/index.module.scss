@@ -1,0 +1,87 @@
+@import "../../Utils/_mixins.scss";
+@import "../../Utils/_variables.scss";
+
+.inputField {
+    @include Input_Field;
+}
+
+.buttonContainer {
+    padding-top: 35px;
+    display: flex;
+    align-items: center;
+    .buttonStyle {
+        background-color: $theme-primary;
+        border: none;
+        color: white;
+        padding: 15px 30px;
+        font-size: 16px;
+        width: 50%;
+        cursor: pointer;
+    }
+    p {
+        font-size: 12px;
+        font-weight: normal;
+        color: $theme-secondary;
+        margin-left: 20px;
+    }
+}
+
+.mainContainer {
+    margin: 10vh 0;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    .remove {
+        background-color: #cfccdc;
+        display: flex;
+        align-items: center;
+        border-radius: 15px;
+        padding: 3px 5px;
+        cursor: pointer;
+    }
+    p {
+        font-size: 24px;
+        font-weight: normal;
+        color: $theme-black;
+    }
+}
+
+.hr {
+    border: solid 1px #cfccdc;
+    background-color: #cfccdc;
+}
+
+.showAmountSummaryContainer {
+    margin: 40px 0px;
+    overflow: hidden;
+    background-color: #f0eff4;
+    .wrapper {
+        padding: 30px;
+        div {
+            padding: 20px;
+        }
+        p {
+            font-size: 14px;
+            font-weight: normal;
+            color: $theme-secondary;
+        }
+        h2 {
+            background-color: #cfccdc;
+            display: flex;
+            padding: 30px;
+            padding-right: 20px;
+            margin-top: 20px;
+        }
+    }
+}
+
+@media screen and (max-width: 960px) {
+    .buttonContainer {
+        p {
+            display: none;
+        }
+    }
+}

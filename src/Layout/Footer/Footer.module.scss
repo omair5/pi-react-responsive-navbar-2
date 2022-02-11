@@ -1,0 +1,30 @@
+@import "../../Utils/_mixins.scss";
+@import "../../Utils/_variables.scss";
+.mainContainer {
+    background-color: $theme-footer-bg;
+    font-size: 14px;
+    display: flex;
+    justify-content: flex-start;
+    color: rgb(255, 255, 255);
+    max-width: 100vw;
+    overflow: hidden;
+    padding: 20px 0px;
+
+    .wrapper {
+        @include HorizontalAndVerticalCenter;
+    }
+
+    .nbp {
+        color: $theme-footer-nbp;
+        font-size: 10px;
+    }
+}
+.footer_nav {
+    display: flex;
+}
+
+@media screen and (max-width: 960px) {
+    .mainContainer {
+        padding: 8px 0px;
+    }
+}

@@ -1,0 +1,24 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;500;600&display=swap");
+.mainContainer {
+  background-color: #f0eff4;
+}
+
+.mainContainer .wrapper {
+  background-color: #f8f7fa;
+  padding: 60px 2vw;
+}
+
+.mainContainer .heading {
+  font-size: 48px;
+  font-size: clamp(1.5rem, 6.8vw, 3rem);
+  font-weight: 300;
+  color: #000;
+}
+
+.mainContainer .paragraph {
+  font-size: 16px;
+  font-weight: normal;
+  color: #000;
+  margin-top: 20px;
+}
+/*# sourceMappingURL=index.module.css.map */

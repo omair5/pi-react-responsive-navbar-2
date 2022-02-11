@@ -1,0 +1,128 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;500;600&display=swap");
+.inputField {
+  display: block;
+  width: 100%;
+  padding: 0.7rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 2px;
+  margin-top: 25px;
+  -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+}
+
+.inputField:focus {
+  -webkit-box-shadow: 0px 0px 0px 3px rgba(158, 205, 255, 0.74);
+          box-shadow: 0px 0px 0px 3px rgba(158, 205, 255, 0.74);
+  border: 1px solid #ced4da;
+  outline: none;
+}
+
+.buttonContainer {
+  padding-top: 35px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.buttonContainer .buttonStyle {
+  background-color: #009a54;
+  border: none;
+  color: white;
+  padding: 15px 30px;
+  font-size: 16px;
+  width: 50%;
+  cursor: pointer;
+}
+
+.buttonContainer p {
+  font-size: 12px;
+  font-weight: normal;
+  color: #808080;
+  margin-left: 20px;
+}
+
+.mainContainer {
+  margin: 10vh 0;
+}
+
+.header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-bottom: 25px;
+}
+
+.header .remove {
+  background-color: #cfccdc;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 15px;
+  padding: 3px 5px;
+  cursor: pointer;
+}
+
+.header p {
+  font-size: 24px;
+  font-weight: normal;
+  color: #000;
+}
+
+.hr {
+  border: solid 1px #cfccdc;
+  background-color: #cfccdc;
+}
+
+.showAmountSummaryContainer {
+  margin: 40px 0px;
+  overflow: hidden;
+  background-color: #f0eff4;
+}
+
+.showAmountSummaryContainer .wrapper {
+  padding: 30px;
+}
+
+.showAmountSummaryContainer .wrapper div {
+  padding: 20px;
+}
+
+.showAmountSummaryContainer .wrapper p {
+  font-size: 14px;
+  font-weight: normal;
+  color: #808080;
+}
+
+.showAmountSummaryContainer .wrapper h2 {
+  background-color: #cfccdc;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 30px;
+  padding-right: 20px;
+  margin-top: 20px;
+}
+
+@media screen and (max-width: 960px) {
+  .buttonContainer p {
+    display: none;
+  }
+}
+/*# sourceMappingURL=index.module.css.map */

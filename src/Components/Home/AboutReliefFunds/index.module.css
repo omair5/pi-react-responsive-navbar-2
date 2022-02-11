@@ -1,0 +1,85 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;500;600&display=swap");
+.mainContainer {
+  background-color: #009a54;
+  overflow: hidden;
+}
+
+.mainContainer .wrapper {
+  margin: 15vh auto;
+}
+
+.mainContainer .header h2 {
+  font-size: 26px;
+  font-weight: 500;
+  color: #fbfbfc;
+  padding-bottom: 25px;
+}
+
+.mainContainer .header p {
+  font-size: 16px;
+  color: #91e9c1;
+  font-weight: normal;
+}
+
+.mainContainer .card_container {
+  margin: 60px auto;
+}
+
+.mainContainer .card_container .card {
+  padding: 35px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: #008e4e;
+}
+
+.mainContainer .card_container .rightColumn {
+  margin-left: 20px;
+}
+
+.mainContainer .card_container .rightColumn h4 {
+  color: #fbfbfc;
+}
+
+.mainContainer .card_container .rightColumn p {
+  padding: 20px 0px;
+  color: #91e9c1;
+}
+
+.mainContainer .feePayment {
+  margin-left: 30px;
+}
+
+.mainContainer hr {
+  max-width: 420px;
+  border: solid 2px #008e4e;
+  background-color: #008e4e;
+}
+
+.mainContainer .ourChallenge {
+  margin: 40px auto;
+}
+
+.mainContainer .ourChallenge h2 {
+  font-size: 26px;
+  font-weight: 500;
+  color: #fbfbfc;
+  padding-bottom: 25px;
+}
+
+.mainContainer .ourChallenge p {
+  padding: 16px;
+  color: #91e9c1;
+}
+
+@media screen and (max-width: 960px) {
+  .feePayment {
+    margin-left: 0px !important;
+    margin-top: 20px;
+    margin-right: 30px;
+  }
+  .marginRight {
+    margin-right: 30px;
+  }
+}
+/*# sourceMappingURL=index.module.css.map */

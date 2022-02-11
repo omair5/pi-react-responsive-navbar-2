@@ -1,0 +1,91 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;500;600&display=swap");
+.mainContainer {
+  padding: 20px 0px;
+}
+
+.mainContainer .heading {
+  font-size: 24px;
+  font-weight: normal;
+  color: #000;
+  margin: 30px 0px;
+}
+
+.inputField {
+  display: block;
+  width: 100%;
+  padding: 0.7rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 2px;
+  margin-top: 25px;
+  -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+}
+
+.inputField:focus {
+  -webkit-box-shadow: 0px 0px 0px 3px rgba(158, 205, 255, 0.74);
+          box-shadow: 0px 0px 0px 3px rgba(158, 205, 255, 0.74);
+  border: 1px solid #ced4da;
+  outline: none;
+}
+
+.disabledField {
+  background-color: #e9ecef;
+}
+
+.disabledField:focus {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  border: 1px solid #ced4da;
+  outline: none;
+}
+
+.userConsent span {
+  color: #009a54;
+  cursor: pointer;
+  font-weight: lighter;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+.hr {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.buttonContainer {
+  margin-top: 50px;
+}
+
+.buttonContainer .buttonStyle {
+  background-color: #009a54;
+  border: none;
+  color: white;
+  padding: 15px 80px;
+  font-size: 16px;
+  width: 100%;
+  cursor: pointer;
+}
+
+.logoContainer {
+  margin-top: 8vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.logoContainer .masterCardLogo {
+  margin-top: 7px;
+}
+/*# sourceMappingURL=index.module.css.map */

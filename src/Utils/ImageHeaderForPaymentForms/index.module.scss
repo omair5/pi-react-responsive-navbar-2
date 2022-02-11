@@ -1,0 +1,23 @@
+@import "../_mixins.scss";
+@import "../_variables.scss";
+
+.bgImage {
+    width: 100vw;
+    min-height: 400px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-position: center;
+    object-fit: contain;
+    display: flex;
+    align-items: center;
+    h1 {
+        @include pmReliefFundHeaderText;
+        color: white;
+    }
+}
+
+@media screen and (max-width: 960px) {
+    .bgImage {
+        min-height: 300px;
+    }
+}

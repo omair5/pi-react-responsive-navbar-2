@@ -1,0 +1,21 @@
+@import "../_variables.scss";
+
+.mainContainer {
+    background-color: $theme-payment-container;
+    .wrapper {
+        background-color: $theme-payment-wrapper;
+        padding: 60px 2vw;
+    }
+    .heading {
+        font-size: 48px;
+        font-size: clamp(1.5rem, 6.8vw, 3rem);
+        font-weight: 300;
+        color: $theme-black;
+    }
+    .paragraph {
+        font-size: 16px;
+        font-weight: normal;
+        color: $theme-black;
+        margin-top: 20px;
+    }
+}

@@ -1,0 +1,64 @@
+@import "./_variables.scss";
+
+$primary_color: #f2c417;
+$secondary_color: #444444;
+$primary_gradient: linear-gradient(45deg, #f2c417 0%, #ffe585 100%);
+
+@mixin MainHeading {
+    font-size: 35px;
+    font-size: clamp(18px, 5vw, 35px);
+    color: $theme-primary;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+    &::before {
+        content: "";
+        position: absolute;
+        display: block;
+        width: 50px;
+        height: 3px;
+        background: $theme-black;
+        bottom: 0;
+        left: 0;
+    }
+}
+
+@mixin HorizontalAndVerticalCenter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin Input_Field {
+    display: block;
+    width: 100%;
+    padding: 0.7rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 2px;
+    margin-top: 25px;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    &:focus {
+        box-shadow: 0px 0px 0px 3px rgba(158, 205, 255, 0.74);
+        border: 1px solid #ced4da;
+        outline: none;
+    }
+}
+
+@mixin pmReliefFundHeaderText {
+    font-family: $font-family;
+    font-size: 48px;
+    font-size: clamp(1.5rem, 6.8vw, 3rem);
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.08;
+    letter-spacing: normal;
+    color: $theme-black;
+}
