@@ -9,31 +9,28 @@ function Dropdown() {
     const handleClick = () => setClick(!click);
 
     return (
-        <>
-            <ul
-                onClick={handleClick}
-                className={click ? 'dropdown-menu clicked' : 'dropdown-menu'}
-            >
-                <Paper elevation={3} >
-                    <li >
-                        <Link
-                            className='dropdown-link'
-                            to='/donate'
-                            onClick={() => setClick(false)}
-                        >
-                            Donate in PM Relief Fund COVID-19
-                        </Link>
-                        <Link
-                            className='dropdown-link'
-                            to='/booster-fee-payment'
-                            onClick={() => setClick(false)}
-                        >
-                            Covid Vaccination Booster Fee
-                        </Link>
-                    </li>
-                </Paper>
-            </ul>
-        </>
+        <Paper
+            elevation={3}
+            onClick={handleClick}
+            className={click ? 'dropdown-menu clicked' : 'dropdown-menu'}
+        >
+            <div>
+                <Link
+                    className='dropdown-link'
+                    to='/donate'
+                    onClick={() => setClick(false)}
+                >
+                    Donate in PM Relief Fund COVID-19
+                </Link>
+                <Link
+                    className='dropdown-link'
+                    to='/booster-fee-payment'
+                    onClick={() => setClick(false)}
+                >
+                    Covid Vaccination Booster Fee
+                </Link>
+            </div>
+        </Paper>
     );
 }
 export default React.memo(Dropdown);

@@ -12,8 +12,8 @@ const ImageHeaderForPaymentForms = ({ backGroundImage }) => {
                     <Slide direction="right" in={true} timeout={1500} mountOnEnter unmountOnExit>
                         <h1>
                             The Prime Minister's <br />
-                            Covid 19 Panademic <br />
-                            Releif Fund 2021
+                            Covid 19 Pandemic <br />
+                            Relief Fund 2021
                         </h1>
                     </Slide>
                 </strong>

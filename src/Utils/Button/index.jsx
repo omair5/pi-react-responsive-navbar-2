@@ -9,13 +9,14 @@ const useStyles = makeStyles(() => ({
         color: (styleProp) => styleProp.color ? styleProp.color : 'white',
         fontSize: '16px',
         letterSpacing: '1px',
+        fontFamily: 'Inter',
         outline: 'none',
         border: ' none',
         cursor: 'pointer',
         display: 'block',
-        transition: 'all 0.5s ease',
+        transition: 'all 0.5s ease-in-out',
         '&:hover': {
-            transform: 'scale(1.02)'
+            transform: 'scale(1.01)'
         }
     },
 }));

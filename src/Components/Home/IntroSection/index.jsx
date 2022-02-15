@@ -20,14 +20,13 @@ const IntroSection = () => {
                                 <strong>
                                     <h1>
                                         The Prime Minister's <br />
-                                        Covid 19 Panademic <br />
-                                        Releif Fund 2021
+                                        Covid 19 Pandemic <br />
+                                        Relief Fund 2021
                                     </h1>
                                 </strong>
                                 <p>
-                                    you can donate from across the globe to the
-                                    prime Minister's Covid-19 panademic releif fund with
-                                    your debit card/credit Card.
+                                    you can donate from across the globe to the prime Minister's
+                                    Covid-19 pandemic relief fund with your debit card/credit Card.
                                 </p>
                                 <img src={AlfalahLogo} alt="AlFalah" height="50px" className={styles.alfalah_logo} />
                             </div>

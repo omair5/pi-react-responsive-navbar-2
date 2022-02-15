@@ -10,13 +10,13 @@ const BoosterFeePayment = () => {
 
   const headingLine1 = 'Covid Vaccination'
   const headingLine2 = 'Booster Fee Payment'
-  const paragraph = 'Suspendisse iaculis nulla turpis, id varius magna semper et. Nunc a nisl turpis. Nam id sagittis libero. Sed id ullamcorper ante. Suspendisse tempus finibus turpis, malesuada eleifend risus gravida sit amet.'
+  // const paragraph = 'Suspendisse iaculis nulla turpis, id varius magna semper et. Nunc a nisl turpis. Nam id sagittis libero. Sed id ullamcorper ante. Suspendisse tempus finibus turpis, malesuada eleifend risus gravida sit amet.'
 
   return (
     <Layout>
       <ImageHeaderForPaymentForms backGroundImage={BoosterHeader} />
 
-      <LayoutForPaymentForms headingLine1={headingLine1} headingLine2={headingLine2} paragraph={paragraph}>
+      <LayoutForPaymentForms headingLine1={headingLine1} headingLine2={headingLine2} >
         <BoosterFeePaymentForm />
       </LayoutForPaymentForms>
 

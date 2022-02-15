@@ -7,8 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import { CountryList } from '../../JsUtils/CountryList'
 import { v4 as uuidv4 } from 'uuid';
 import TermsAndConditionModal from '../Payments/TermsAndConditionModal';
-import PaymentDetailsModal from '../Payments/PaymentDetailsModal';
-import FundsDonateDetail from '../../services/PostServices/FundsDonateDetail';
+// import FundsDonateDetail from '../../services/PostServices/FundsDonateDetail';
 import BankAlfalah from '../../Assets/Images/baf.png'
 import MasterCard from '../../Assets/Images/masterCard.png'
 import { base_url } from "../../Config"
@@ -16,6 +15,8 @@ import axios from 'axios';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
+import { toast } from 'react-toastify';
+
 
 
 
@@ -28,17 +29,23 @@ const useStyles = makeStyles((theme) => ({
 
 
 const DonationPaymentForm = () => {
-    const classes = useStyles();
     const apiURL = `${base_url}/api/payment/validate/request`
-
+    const classes = useStyles();
     const [backdrop, setbackdrop] = React.useState(false);
+    const [openUserConsentDialog, setopenUserConsentDialog] = useState(false)
 
+
+    // HANDLING ERRORS FOR PAYMENT GATEWAY 
     window.handlePgCancel = () => {
-        alert('it has been cancelled')
+        toast.warn('Payment Process Cancelled')
+    }
+    window.handleErrorCallback = () => {
+        toast.error('Payment gateway Connection Error')
+    }
+    window.handletimeoutCallback = () => {
+        toast.error('Timeout, Payment Not Completed')
     }
 
-    const [openUserConsentDialog, setopenUserConsentDialog] = useState(false)
-    const [openPaymentDetailsDialog, setopenPaymentDetailsDialog] = useState(false);
 
     // open User Consent dialog box
     const HandleOpenUserConsent = () => {
@@ -48,17 +55,6 @@ const DonationPaymentForm = () => {
     const HandleCloseUserConsentDialog = () => {
         setopenUserConsentDialog(false);
     };
-
-    // close payment details dialog box
-    const HandleClosePaymentDetailsDialog = () => {
-        setopenPaymentDetailsDialog(false)
-    };
-
-    // useEffect(()=>{
-    //     window.cancelCallback()
-    // },[ window.cancelCallback])
-
-
 
 
     // formik initial values
@@ -73,15 +69,23 @@ const DonationPaymentForm = () => {
 
     // validation schema
     const validationSchema = Yup.object({
-        name: Yup.string().max(20, 'Must be 20 characters or less').min(3, 'Name Should Have Atleast 3 Characters').required('Valid name is Required'),
-        email: Yup.string().email('Invalid email address'),
-        amount: Yup.number().required('Valid Amount is Required'),
-        acceptedTerms: Yup.boolean().required('Required').oneOf([true], 'You must accept the terms and conditions.'),
+        name: Yup.string()
+            .min(3, 'Name Should Have Atleast 3 Characters')
+            .required('Valid Name is Required'),
+        email: Yup.string()
+            .email('Invalid email address')
+            .required('Valid Email is Required'),
+        amount: Yup.string().required('Valid Amount is Required'),
+        acceptedTerms: Yup.boolean()
+            .required('Required')
+            .oneOf([true], 'You must accept the terms and conditions.'),
     })
 
-    // formik handle submit
+    // Handle Submit
     const HandleSubmit = (values) => {
+
         setbackdrop(true)
+
         const body = {
             country: values.country,
             currency: values.currency,
@@ -109,136 +113,162 @@ const DonationPaymentForm = () => {
             requestDate: new Date().toJSON().slice(0, 19),
         }
 
-
         axios.post(apiURL, body).then((res) => {
-            console.log('res', res)
-            const session_id = res.data.data.sessionId
-            console.log(session_id)
-            const totlalAmount = res.data.data.totlalAmount
-            const orderId = res.data.data.orderId
-            const currency = values.currency
-            const merchantName = res.data.data.merchantId
             setbackdrop(false)
 
-            // PG METHOD
-            window.Checkout.configure({
-                session: {
-                    id: session_id
-                },
-                order: {
-                    amount: function () {
-                        return totlalAmount;
+            if (res.status === 200) {
+                sessionStorage.clear()
+                const session_id = res?.data?.data?.sessionId
+                const totlalAmount = res?.data?.data?.totlalAmount
+                const orderId = res?.data?.data?.orderId
+                const currency = values?.currency
+                // const merchantName = res.data.data.merchantId
+
+                // PG METHOD
+                window.Checkout.configure({
+                    session: {
+                        id: session_id
                     },
-                    currency: 'USD',
-                    description: 'Donation To PM Relief Fund',
-                    id: orderId
-                },
-                interaction: {
-                    operation: 'PURCHASE',
-                    merchant: {
-                        name: 'National Bank',
-                        phone: 'UAN +9221 627 627627',
+                    order: {
+                        amount: function () {
+                            return totlalAmount;
+                        },
+                        currency: currency,
+                        description: 'Donation To PM Relief Fund',
+                        id: orderId
                     },
-                    displayControl: {
-                        paymentConfirmation: 'SHOW',
-                        billingAddress: 'HIDE'
+                    interaction: {
+                        operation: 'PURCHASE',
+                        merchant: {
+                            name: 'National Bank',
+                            phone: 'UAN +9221 627 627627',
+                        },
+                        displayControl: {
+                            paymentConfirmation: 'SHOW',
+                            billingAddress: 'HIDE'
 
-                    },
-                }
-            })
+                        },
+                    }
+                })
+                window.Checkout.showLightbox()
 
-            window.Checkout.showLightbox()
+                sessionStorage.setItem('amount', totlalAmount)
+                sessionStorage.setItem('currency', currency)
+                sessionStorage.setItem('description', 'PM’s Relief Fund')
+            }
+
+            else {
+                const errorDescription = res.data.message
+                toast.error(errorDescription)
+            }
 
 
-        }).catch((err) => console.log(err))
-
-
-        // setopenPaymentDetailsDialog(true)
+        }).catch((err) => {
+            console.log(err)
+            setbackdrop(false)
+            toast.error('Server Error')
+        }
+        )
     }
 
 
     return (
         <div className={styles.mainContainer}>
             <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={HandleSubmit}>
-                <Form>
-                    <div className={styles.heading}>Your Details</div>
-                    <Grid >
-                        {/* name */}
-                        <Grid item xs={12} sm={12} md={6} lg={4}>
-                            <InputField
-                                name="name"
-                                type="text"
-                                placeholder="Full Name"
-                                className={styles.inputField}
-                            />
+                {(formikProps) => (
+                    <Form>
+                        <div className={styles.heading}>Your Details</div>
+                        <Grid >
+                            {/* name */}
+                            <Grid item xs={12} sm={12} md={6} lg={4}>
+                                <InputField
+                                    name="name"
+                                    type="text"
+                                    placeholder="Full Name"
+                                    className={styles.inputField}
+                                    maxLength={50}
+                                    onChange={(e) => {
+                                        if (e.target.value.match(/^[a-zA-Z ]*$/)) {
+                                            formikProps.setFieldValue('name', e.target.value)
+                                        }
+                                    }}
+                                />
+                            </Grid>
+
+                            {/* email */}
+                            <Grid item xs={12} sm={12} md={6} lg={4}>
+                                <InputField
+                                    name="email"
+                                    type="email"
+                                    placeholder="Email Address"
+                                    className={styles.inputField}
+                                    maxLength={50}
+
+                                />
+                            </Grid>
+
+                            <Grid item xs={12} sm={12} md={6} lg={4}>
+                                {/* country */}
+                                <SelectField name="country" className={styles.inputField} >
+                                    <option value='Pakistan'>Pakistan</option>
+                                    {
+                                        CountryList.map((country) => (
+                                            <option value={country} key={uuidv4()}>{country}</option>
+                                        ))
+                                    }
+                                </SelectField>
+                            </Grid>
+
+                            <Grid item xs={12} sm={12} md={6} lg={4}>
+                                {/* currency */}
+                                <InputField
+                                    name="currency"
+                                    type="text"
+                                    placeholder="Currency"
+                                    className={`${styles.inputField}`}
+                                    disabled={true}
+                                />
+                            </Grid>
+
+                            <Grid item xs={12} sm={12} md={6} lg={4}>
+                                {/* amount */}
+                                <InputField
+                                    name="amount"
+                                    type="text"
+                                    placeholder='Amount'
+                                    className={styles.inputField}
+                                    inputMode='numeric'
+                                    maxLength={10}
+                                    onChange={(e) => {
+                                        console.log(e.target.value)
+                                        if (e.target.value === '0') {
+                                            return
+                                        }
+                                        else if (e.target.value.match(/^[0-9]*$/)) {
+                                            formikProps.setFieldValue('amount', e.target.value)
+                                        }
+                                    }}
+                                />
+                            </Grid>
+
                         </Grid>
 
-                        {/* email */}
-                        <Grid item xs={12} sm={12} md={6} lg={4}>
-                            <InputField
-                                name="email"
-                                type="email"
-                                placeholder="Email Address"
-                                className={styles.inputField}
-                            />
+                        {/* checkbox */}
+                        <CheckBoxField name="acceptedTerms">
+                            <span className={styles.userConsent}>
+                                <b> I agree to the <span onClick={HandleOpenUserConsent}>Terms and Conditions</span></b>
+                            </span>
+                        </CheckBoxField>
+
+                        <Grid item xs={12} sm={12} md={6} lg={4} className={styles.buttonContainer}>
+
+                            <button className={styles.buttonStyle} type='submit'  >
+                                Proceed For Pay
+                            </button>
                         </Grid>
-                        <Grid item xs={12} sm={12} md={6} lg={4}>
-                            {/* country */}
-                            <SelectField name="country" className={styles.inputField} >
-                                <option value='Pakistan'>Pakistan</option>
-                                {
-                                    CountryList.map((country) => (
-                                        <option value={country} key={uuidv4()}>{country}</option>
-                                    ))
-                                }
-                            </SelectField>
-                        </Grid>
-
-
-                        <Grid item xs={12} sm={12} md={6} lg={4}>
-                            {/* currency */}
-                            <InputField
-                                name="currency"
-                                type="text"
-                                placeholder="Currency"
-                                className={`${styles.inputField}`}
-                                disabled={true}
-                            />
-                        </Grid>
-
-                        <Grid item xs={12} sm={12} md={6} lg={4}>
-                            {/* amount */}
-                            <InputField
-                                name="amount"
-                                type="tex"
-                                placeholder='Amount'
-                                className={styles.inputField}
-                            />
-                        </Grid>
-
-                    </Grid>
-
-                    {/* checkbox */}
-                    <CheckBoxField name="acceptedTerms">
-                        <span className={styles.userConsent}>
-                            <b> I agree to the <span onClick={HandleOpenUserConsent}>Terms and Conditions</span></b>
-                        </span>
-                    </CheckBoxField>
-
-                    <Grid item xs={12} sm={12} md={6} lg={4} className={styles.buttonContainer}>
-                        {/* <button className={styles.buttonStyle} type='submit' disabled={sessionId ? false : true} >
-                            Process For Pay
-                        </button> */}
-
-                        <button className={styles.buttonStyle} type='submit'  >
-                            Process For Pay
-                        </button>
-                    </Grid>
-
-                    {/* this modal will open when user clicks on donate button after successful validation */}
-                    <PaymentDetailsModal open={openPaymentDetailsDialog} close={HandleClosePaymentDetailsDialog} />
-
-                </Form>
+                    </Form>
+                )
+                }
             </Formik>
 
             <div className={styles.logoContainer}>

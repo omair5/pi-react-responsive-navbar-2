@@ -1,7 +1,8 @@
 body {
     overflow-x: hidden;
 }
-html{
+
+html {
     scroll-behavior: smooth;
 
 }
@@ -10,4 +11,11 @@ input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
+}
+
+.toastBody {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+    padding: 7px 2px !important;
+    font-size: 14px;
 }

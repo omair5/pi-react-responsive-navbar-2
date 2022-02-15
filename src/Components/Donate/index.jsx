@@ -34,12 +34,13 @@ const DonationPaymentForm = () => {
     const [backdrop, setbackdrop] = React.useState(false);
     const [openUserConsentDialog, setopenUserConsentDialog] = useState(false)
 
+
     // HANDLING ERRORS FOR PAYMENT GATEWAY 
     window.handlePgCancel = () => {
         toast.warn('Payment Process Cancelled')
     }
     window.handleErrorCallback = () => {
-        toast.error('Payment gateway Error')
+        toast.error('Payment gateway Connection Error')
     }
     window.handletimeoutCallback = () => {
         toast.error('Timeout, Payment Not Completed')
@@ -68,14 +69,21 @@ const DonationPaymentForm = () => {
 
     // validation schema
     const validationSchema = Yup.object({
-        name: Yup.string().max(20, 'Must be 20 characters or less').min(3, 'Name Should Have Atleast 3 Characters').required('Valid Name is Required'),
-        email: Yup.string().email('Invalid email address').required('Valid Email is Required'),
-        amount: Yup.number().required('Valid Amount is Required'),
-        acceptedTerms: Yup.boolean().required('Required').oneOf([true], 'You must accept the terms and conditions.'),
+        name: Yup.string()
+            .min(3, 'Name Should Have Atleast 3 Characters')
+            .required('Valid Name is Required'),
+        email: Yup.string()
+            .email('Invalid email address')
+            .required('Valid Email is Required'),
+        amount: Yup.string().required('Valid Amount is Required'),
+        acceptedTerms: Yup.boolean()
+            .required('Required')
+            .oneOf([true], 'You must accept the terms and conditions.'),
     })
 
     // Handle Submit
     const HandleSubmit = (values) => {
+
         setbackdrop(true)
 
         const body = {
@@ -107,40 +115,52 @@ const DonationPaymentForm = () => {
 
         axios.post(apiURL, body).then((res) => {
             setbackdrop(false)
-            const session_id = res?.data?.data?.sessionId
-            const totlalAmount = res?.data?.data?.totlalAmount
-            const orderId = res?.data?.data?.orderId
-            const currency = values?.currency
-            // const merchantName = res.data.data.merchantId
 
-            // PG METHOD
-            window.Checkout.configure({
-                session: {
-                    id: session_id
-                },
-                order: {
-                    amount: function () {
-                        return totlalAmount;
-                    },
-                    currency: currency,
-                    description: 'Donation To PM Relief Fund',
-                    id: orderId
-                },
-                interaction: {
-                    operation: 'PURCHASE',
-                    merchant: {
-                        name: 'National Bank',
-                        phone: 'UAN +9221 627 627627',
-                    },
-                    displayControl: {
-                        paymentConfirmation: 'SHOW',
-                        billingAddress: 'HIDE'
+            if (res.status === 200) {
+                sessionStorage.clear()
+                const session_id = res?.data?.data?.sessionId
+                const totlalAmount = res?.data?.data?.totlalAmount
+                const orderId = res?.data?.data?.orderId
+                const currency = values?.currency
+                // const merchantName = res.data.data.merchantId
 
+                // PG METHOD
+                window.Checkout.configure({
+                    session: {
+                        id: session_id
                     },
-                }
-            })
+                    order: {
+                        amount: function () {
+                            return totlalAmount;
+                        },
+                        currency: currency,
+                        description: 'Donation To PM Relief Fund',
+                        id: orderId
+                    },
+                    interaction: {
+                        operation: 'PURCHASE',
+                        merchant: {
+                            name: 'National Bank',
+                            phone: 'UAN +9221 627 627627',
+                        },
+                        displayControl: {
+                            paymentConfirmation: 'SHOW',
+                            billingAddress: 'HIDE'
 
-            window.Checkout.showLightbox()
+                        },
+                    }
+                })
+                window.Checkout.showLightbox()
+
+                sessionStorage.setItem('amount', totlalAmount)
+                sessionStorage.setItem('currency', currency)
+                sessionStorage.setItem('description', 'PM’s Relief Fund')
+            }
+
+            else {
+                const errorDescription = res.data.message
+                toast.error(errorDescription)
+            }
 
 
         }).catch((err) => {
@@ -155,81 +175,99 @@ const DonationPaymentForm = () => {
     return (
         <div className={styles.mainContainer}>
             <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={HandleSubmit}>
-                <Form>
-                    <div className={styles.heading}>Your Details</div>
-                    <Grid >
-                        {/* name */}
-                        <Grid item xs={12} sm={12} md={6} lg={4}>
-                            <InputField
-                                name="name"
-                                type="text"
-                                placeholder="Full Name"
-                                className={styles.inputField}
-                            />
+                {(formikProps) => (
+                    <Form>
+                        <div className={styles.heading}>Your Details</div>
+                        <Grid >
+                            {/* name */}
+                            <Grid item xs={12} sm={12} md={6} lg={4}>
+                                <InputField
+                                    name="name"
+                                    type="text"
+                                    placeholder="Full Name"
+                                    className={styles.inputField}
+                                    maxLength={50}
+                                    onChange={(e) => {
+                                        if (e.target.value.match(/^[a-zA-Z ]*$/)) {
+                                            formikProps.setFieldValue('name', e.target.value)
+                                        }
+                                    }}
+                                />
+                            </Grid>
+
+                            {/* email */}
+                            <Grid item xs={12} sm={12} md={6} lg={4}>
+                                <InputField
+                                    name="email"
+                                    type="email"
+                                    placeholder="Email Address"
+                                    className={styles.inputField}
+                                    maxLength={50}
+
+                                />
+                            </Grid>
+
+                            <Grid item xs={12} sm={12} md={6} lg={4}>
+                                {/* country */}
+                                <SelectField name="country" className={styles.inputField} >
+                                    <option value='Pakistan'>Pakistan</option>
+                                    {
+                                        CountryList.map((country) => (
+                                            <option value={country} key={uuidv4()}>{country}</option>
+                                        ))
+                                    }
+                                </SelectField>
+                            </Grid>
+
+                            <Grid item xs={12} sm={12} md={6} lg={4}>
+                                {/* currency */}
+                                <InputField
+                                    name="currency"
+                                    type="text"
+                                    placeholder="Currency"
+                                    className={`${styles.inputField}`}
+                                    disabled={true}
+                                />
+                            </Grid>
+
+                            <Grid item xs={12} sm={12} md={6} lg={4}>
+                                {/* amount */}
+                                <InputField
+                                    name="amount"
+                                    type="text"
+                                    placeholder='Amount'
+                                    className={styles.inputField}
+                                    inputMode='numeric'
+                                    maxLength={10}
+                                    onChange={(e) => {
+                                        if (e.target.value === '0') {
+                                            return
+                                        }
+                                        else if (e.target.value.match(/^[0-9]*$/)) {
+                                            formikProps.setFieldValue('amount', e.target.value)
+                                        }
+                                    }}
+                                />
+                            </Grid>
+
                         </Grid>
 
-                        {/* email */}
-                        <Grid item xs={12} sm={12} md={6} lg={4}>
-                            <InputField
-                                name="email"
-                                type="email"
-                                placeholder="Email Address"
-                                className={styles.inputField}
-                            />
+                        {/* checkbox */}
+                        <CheckBoxField name="acceptedTerms">
+                            <span className={styles.userConsent}>
+                                <b> I agree to the <span onClick={HandleOpenUserConsent}>Terms and Conditions</span></b>
+                            </span>
+                        </CheckBoxField>
+
+                        <Grid item xs={12} sm={12} md={6} lg={4} className={styles.buttonContainer}>
+
+                            <button className={styles.buttonStyle} type='submit'  >
+                                Proceed For Pay
+                            </button>
                         </Grid>
-
-                        <Grid item xs={12} sm={12} md={6} lg={4}>
-                            {/* country */}
-                            <SelectField name="country" className={styles.inputField} >
-                                <option value='Pakistan'>Pakistan</option>
-                                {
-                                    CountryList.map((country) => (
-                                        <option value={country} key={uuidv4()}>{country}</option>
-                                    ))
-                                }
-                            </SelectField>
-                        </Grid>
-
-                        <Grid item xs={12} sm={12} md={6} lg={4}>
-                            {/* currency */}
-                            <InputField
-                                name="currency"
-                                type="text"
-                                placeholder="Currency"
-                                className={`${styles.inputField}`}
-                                disabled={true}
-                            />
-                        </Grid>
-
-                        <Grid item xs={12} sm={12} md={6} lg={4}>
-                            {/* amount */}
-                            <InputField
-                                name="amount"
-                                type="tex"
-                                placeholder='Amount'
-                                className={styles.inputField}
-                            />
-                        </Grid>
-
-                    </Grid>
-
-                    {/* checkbox */}
-                    <CheckBoxField name="acceptedTerms">
-                        <span className={styles.userConsent}>
-                            <b> I agree to the <span onClick={HandleOpenUserConsent}>Terms and Conditions</span></b>
-                        </span>
-                    </CheckBoxField>
-
-                    <Grid item xs={12} sm={12} md={6} lg={4} className={styles.buttonContainer}>
-                        {/* <button className={styles.buttonStyle} type='submit' disabled={sessionId ? false : true} >
-                            Process For Pay
-                        </button> */}
-
-                        <button className={styles.buttonStyle} type='submit'  >
-                            Process For Pay
-                        </button>
-                    </Grid>
-                </Form>
+                    </Form>
+                )
+                }
             </Formik>
 
             <div className={styles.logoContainer}>

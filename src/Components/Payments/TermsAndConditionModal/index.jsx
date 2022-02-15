@@ -89,7 +89,7 @@ function TermsAndConditionModal({ open, close }) {
                 <DialogContent dividers >
                     <p>
                         <strong><u>TERMS AND CONDITIONS FOR USING NBP
-                            MPAYMENT &amp; EPAYMENT PM RELIEF FUND (&ldquo;PMRF&rdquo;)
+                            m-PAYMENT &amp; e-PAYMENT PM RELIEF FUND (&ldquo;PMRF&rdquo;)
                             FOR COVID-19</u></strong>
                     </p>
                     <p>These Terms and Conditions are applicable for the
@@ -221,10 +221,10 @@ function TermsAndConditionModal({ open, close }) {
                     <p>&nbsp;</p>
                     <ol start="5">
                         <li><strong> RESPONSIBILITIES AND OBLIGATIONS OF
-                            THE DONOR</strong></li>
+                            THE DONOR/PAYER</strong></li>
                     </ol>
                     <ol>
-                        <li>The customer is/ you are solely responsible to follow
+                        <li>you are solely responsible to follow
                             instructions to avail Services and to adopt the security
                             protocols and such other guidelines as may be provided by the
                             Bank from time to time whether through notifications on its

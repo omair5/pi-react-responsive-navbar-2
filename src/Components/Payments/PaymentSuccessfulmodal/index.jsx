@@ -5,14 +5,19 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import Button from '../../../Utils/Button';
 import DoneIcon from '@material-ui/icons/Done';
+import currencyFormatter from 'currency-formatter';
+
 
 const useStyles = makeStyles((theme) => ({
     modal: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        margin: 'auto',
+        maxWidth: '500px'
     },
     paper: {
+        outline: 'none',
         backgroundColor: theme.palette.background.paper,
         boxShadow: theme.shadows[5],
         borderRadius: '7px',
@@ -41,6 +46,22 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PaymentSuccessfulModal({ openModal, closeModal }) {
     const classes = useStyles();
+    const amount = sessionStorage.getItem('amount')
+    const currency = sessionStorage.getItem('currency')
+    const description = sessionStorage.getItem('description')
+
+    const GenerateTotalAmount = (amount) => {
+        return currencyFormatter.format(amount, {
+            "code": "PKR",
+            "symbol": "",
+            "thousandsSeparator": ",",
+            "decimalSeparator": ".",
+            "symbolOnLeft": true,
+            "spaceBetweenAmountAndSymbol": false,
+            "decimalDigits": 2
+        });
+    }
+
 
 
     return (
@@ -60,8 +81,9 @@ export default function PaymentSuccessfulModal({ openModal, closeModal }) {
                         <div ><DoneIcon className={classes.done} /></div>
                         <h2>Payment Successful</h2>
                         <p>
-                            Payment of Rs. 2,000 for Covid-19 Booster shot has been
-                            <br /> made successfully.
+                            {`Payment of ${(GenerateTotalAmount(amount))} ${currency} for ${description}
+                             has been  made successfully.`
+                            }
                         </p>
                         <Button innerText='Done' bgColor='#009a54' width={'50%'} HandleButtonClick={closeModal} />
                     </div>

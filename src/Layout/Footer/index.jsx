@@ -34,12 +34,12 @@ const Footer = ({ positionBottom }) => {
                         </li>
 
                         <li className='nav-item-foot'>
-                            <p onClick={HandleOpenUserConsent} className='nav-links-foot'>Terms</p>
+                            <p onClick={HandleOpenUserConsent} className='nav-links-foot'>Terms & Conditions</p>
                         </li>
 
-                        <li className='nav-item-foot'>
+                        {/* <li className='nav-item-foot'>
                             <Link to='/' className='nav-links-foot'>NBP</Link>
-                        </li>
+                        </li> */}
 
                         <li className='nav-item-foot'>
                             <Link to='/contact' className='nav-links-foot'>Contact</Link>

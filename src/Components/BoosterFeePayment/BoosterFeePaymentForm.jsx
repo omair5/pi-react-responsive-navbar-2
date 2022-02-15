@@ -10,15 +10,16 @@ import Button from '../../Utils/Button';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { ConnectedFocusError } from 'focus-formik-error'
-
+import { toast } from 'react-toastify';
+import currencyFormatter from 'currency-formatter';
 
 
 
 const BoosterFeePaymentForm = () => {
     const navigate = useNavigate();
 
-    const AmountInPakistaniRupees = 900
-    const ServiceCharges = 100
+    const AmountInPakistaniRupees = 1270
+    const ServiceCharges = 20
 
     const GenerateAmount = (NUmberOfPeople) => {
         return parseInt(NUmberOfPeople) * AmountInPakistaniRupees
@@ -29,7 +30,16 @@ const BoosterFeePaymentForm = () => {
     }
 
     const GenerateTotalAmount = (NUmberOfPeople) => {
-        return (AmountInPakistaniRupees + ServiceCharges) * parseInt(NUmberOfPeople)
+        const amount = (AmountInPakistaniRupees + ServiceCharges) * parseInt(NUmberOfPeople)
+        return currencyFormatter.format(amount, {
+            "code": "PKR",
+            "symbol": "Rs. ",
+            "thousandsSeparator": ",",
+            "decimalSeparator": ".",
+            "symbolOnLeft": true,
+            "spaceBetweenAmountAndSymbol": false,
+            "decimalDigits": 2
+        });
     }
 
     // formik initial values
@@ -51,11 +61,12 @@ const BoosterFeePaymentForm = () => {
                     fullName: Yup.string().min(3, 'Name is Too Short').required('This Field is Required'),
                     cnic: Yup.string()
                         .required('This Field is Required')
-                        .matches(/^[0-9]+$/, "Must be only digits Without dashes")
                         .min(13, 'Must be exactly 13 digits Without dashes')
                         .max(13, 'Must be exactly 13 digits Without dashes'),
                     email: Yup.string().email('Invalid email address').required('This Field is Required'),
-                    mobileNumber: Yup.string().max(15, 'Incorrect Mobile Number').required('This Field is Required'),
+                    mobileNumber: Yup.string()
+                        .max(15, 'Incorrect Mobile Number')
+                        .required('This Field is Required'),
                 })
             )
     })
@@ -125,6 +136,12 @@ const BoosterFeePaymentForm = () => {
                                                                         type="text"
                                                                         placeholder="Full Name *"
                                                                         className={styles.inputField}
+                                                                        maxLength={50}
+                                                                        onChange={(e) => {
+                                                                            if (e.target.value.match(/^[a-zA-Z ]*$/)) {
+                                                                                formikProps.setFieldValue(`userDetails[${index}].fullName`, e.target.value)
+                                                                            }
+                                                                        }}
                                                                     />
                                                                 </Grid>
 
@@ -132,10 +149,17 @@ const BoosterFeePaymentForm = () => {
                                                                 <Grid item xs={12} sm={12} md={6} lg={4}>
                                                                     <InputField
                                                                         name={`userDetails[${index}].cnic`}
-                                                                        type="number"
-                                                                        placeholder="CNIC / NICOP *"
+                                                                        type="text"
+                                                                        placeholder="CNIC / NICOP Without Dashes *"
                                                                         className={styles.inputField}
-                                                                        inputmode='numeric'
+                                                                        inputMode='numeric'
+                                                                        maxLength={13}
+                                                                        onChange={(e) => {
+                                                                            if (e.target.value.match(/^[0-9]*$/)) {
+                                                                                formikProps.setFieldValue(`userDetails[${index}].cnic`, e.target.value)
+                                                                            }
+                                                                        }}
+
                                                                     />
                                                                 </Grid>
 
@@ -146,6 +170,7 @@ const BoosterFeePaymentForm = () => {
                                                                         type="email"
                                                                         placeholder="Email Address"
                                                                         className={`${styles.inputField}`}
+                                                                        maxLength={50}
                                                                     />
                                                                 </Grid>
 
@@ -153,10 +178,16 @@ const BoosterFeePaymentForm = () => {
                                                                 <Grid item xs={12} sm={12} md={6} lg={4}>
                                                                     <InputField
                                                                         name={`userDetails[${index}].mobileNumber`}
-                                                                        type="number"
+                                                                        type="text"
                                                                         placeholder='Mobile Number'
                                                                         className={styles.inputField}
-                                                                        inputmode='numeric'
+                                                                        inputMode='numeric'
+                                                                        maxLength={15}
+                                                                        onChange={(e) => {
+                                                                            if (e.target.value.match(/^[0-9]*$/)) {
+                                                                                formikProps.setFieldValue(`userDetails[${index}].mobileNumber`, e.target.value)
+                                                                            }
+                                                                        }}
                                                                     />
                                                                 </Grid>
 
@@ -178,15 +209,21 @@ const BoosterFeePaymentForm = () => {
                                                     <hr className={styles.hr} />
 
                                                     <Grid item xs={12} sm={12} md={7} lg={5} className={styles.buttonContainer}>
-                                                        <button className={styles.buttonStyle} type='button' onClick={() => (
-                                                            push({
-                                                                fullName: '',
-                                                                cnic: '',
-                                                                email: '',
-                                                                mobileNumber: '',
-                                                                country: formikProps.values.userDetails[0].country
-                                                            })
-                                                        )}>
+                                                        <button className={styles.buttonStyle} type='button' onClick={() => {
+                                                            if (userDetails.length === 5) {
+                                                                toast.info(`Sorry, You Can Not Add More Than 5 Entries`)
+                                                            }
+                                                            else {
+                                                                push({
+                                                                    fullName: '',
+                                                                    cnic: '',
+                                                                    email: '',
+                                                                    mobileNumber: '',
+                                                                    country: formikProps.values.userDetails[0].country
+                                                                })
+                                                            }
+
+                                                        }}>
                                                             Add More
                                                         </button>
 

@@ -60,9 +60,9 @@ function Navbar() {
                         </li>
                     </div>
 
-                    <li className='nav-item'>
+                    {/* <li className='nav-item'>
                         <Link to='/receipts' className='nav-links' onClick={closeMobileMenu}>Receipts</Link>
-                    </li>
+                    </li> */}
 
                     <li className='nav-item'>
                         <Link to='/faqs' className='nav-links' onClick={closeMobileMenu}>FAQs</Link>

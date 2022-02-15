@@ -17,15 +17,10 @@ const AboutReliefFunds = () => {
                     <Grid xs={12} md={7}>
                         <h2 >
                             About Prime Minister's <br />
-                            Releif Fund
+                            Relief Fund
                         </h2>
                         <p>
-                            The Prime Minister has launched a web-portal soliciting
-                            applications from those who have lost their livilyhoods as a
-                            result of the COVID-19 panademic and has announced to commit the
-                            Prime Minister's COVID 19 releif Fund to those who will qualify
-                            for assistance.On March 31,2020 the Prime Ministers's COVID 19
-                            Releif fund was announced.
+                            The Prime Minister has launched a web-portal soliciting applications from those who have lost their livelihoods as a result of the COVID-19 pandemic and has announced to commit the Prime Minister's COVID 19 relief Fund to those who will qualify for assistance. On March 31,2020 the Prime Ministers’ COVID 19 Relief fund was announced.
                         </p>
                     </Grid>
                 </Grid>
@@ -64,7 +59,7 @@ const AboutReliefFunds = () => {
 
                 {/* OUR CHALLENGE */}
                 <div className={styles.ourChallenge}>
-                    <h2>Our Challange</h2>
+                    <h2>Our Challenge</h2>
                     <Grid container spacing={3}>
                         <Grid xs={12} md={4}>
                             <p> The COVID-19 pandemic is one of the worst health and economic crises in modern history and it continues to require the best of humanity to overcome. Your donation to this fund will help stop the spread of the virus, including the highly contagious Omicron variant, to protect us all.</p>

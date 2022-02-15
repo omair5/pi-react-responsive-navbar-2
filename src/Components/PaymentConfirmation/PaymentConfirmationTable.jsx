@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -7,7 +7,6 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Button from '../../Utils/Button';
-import PaymentSuccessfulModal from '../Payments/PaymentSuccessfulmodal';
 import { useLocation } from 'react-router';
 import currencyFormatter from 'currency-formatter';
 import NothingToShow from '../../Assets/Images/NothingToShow.svg'
@@ -16,6 +15,8 @@ import axios from 'axios';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Backdrop from '@material-ui/core/Backdrop';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+
 
 
 
@@ -68,7 +69,10 @@ const useStyles = makeStyles((theme) => ({
     buttonContainer: {
         marginTop: '20px',
         display: 'flex',
-        justifyContent: 'flex-end'
+        justifyContent: 'flex-end',
+        "& div": {
+            marginLeft: '15px'
+        }
     },
     fallBack: {
         display: 'flex',
@@ -83,10 +87,10 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PaymentConfirmationTable() {
     const classes = useStyles();
+    const navigate = useNavigate();
     const apiURL = `${base_url}/api/payment/validate/request`
     const state = useLocation()
-    const values = state?.state?.values || []
-    const [openSuccessDialog, setopenSuccessDialog] = useState(false);
+    let values = state?.state?.values || []
     const [backdrop, setbackdrop] = React.useState(false);
 
     // HANDLING ERRORS FOR PAYMENT GATEWAY 
@@ -94,7 +98,7 @@ export default function PaymentConfirmationTable() {
         toast.warn('Payment Process Cancelled')
     }
     window.handleErrorCallback = () => {
-        toast.error('Payment gateway is Not Configured Correctly')
+        toast.error('Payment Gateway Connection Failed')
     }
     window.handletimeoutCallback = () => {
         toast.error('Timeout, Payment Not Completed')
@@ -103,12 +107,12 @@ export default function PaymentConfirmationTable() {
 
     // CREATING ROWS FOR TABLE
     const rows = values?.map(val => (
-        { name: val?.fullName, cnic: val?.cnic, amount: 'Rs. 1,000' }
+        { name: val?.fullName, cnic: val?.cnic, amount: 'Rs. 1,290' }
     ))
 
     // Generate Total
     const GenerateTotalAmount = (rows) => {
-        const amount = parseInt(rows) * 1000
+        const amount = parseInt(rows) * 1290
         return currencyFormatter.format(amount, {
             "code": "PKR",
             "symbol": "Rs. ",
@@ -120,9 +124,9 @@ export default function PaymentConfirmationTable() {
         });
     }
 
-    // Handle Success Modal
-    const handleCloseModal = () => {
-        setopenSuccessDialog(false)
+    // Handle Fee Cancel
+    const handleFeeCancel = () => {
+        navigate('/booster-fee-payment')
     }
 
     // API POST REQUEST TO SUBMIT FEE
@@ -144,7 +148,7 @@ export default function PaymentConfirmationTable() {
                 cnic: val.cnic,
                 email: val.email,
                 contactNumber: val.mobileNumber,
-                amount: parseInt(1000),
+                amount: parseInt(1290),
                 currency: currency,
                 country: country,
                 city: "",
@@ -170,47 +174,54 @@ export default function PaymentConfirmationTable() {
 
         axios.post(apiURL, body).then((res) => {
             setbackdrop(false)
-            const session_id = res?.data?.data?.sessionId
-            const totlalAmount = res?.data?.data?.totlalAmount
-            const orderId = res?.data?.data?.orderId
+            if (res.status === 200) {
+                sessionStorage.clear()
+                const session_id = res?.data?.data?.sessionId
+                const totlalAmount = res?.data?.data?.totlalAmount
+                const orderId = res?.data?.data?.orderId
 
-            // Payment gateway Integration
-            window.Checkout.configure({
-                session: {
-                    id: session_id
-                },
-                order: {
-                    amount: function () {
-                        return totlalAmount;
+                // Payment gateway Integration
+                window.Checkout.configure({
+                    session: {
+                        id: session_id
                     },
-                    currency: currency,
-                    description: 'Booster Fee Payment',
-                    id: orderId
-                },
-                interaction: {
-                    operation: 'PURCHASE',
-                    merchant: {
-                        name: "National Bank",
-                        phone: 'UAN +9221 627 627627',
+                    order: {
+                        amount: function () {
+                            return totlalAmount;
+                        },
+                        currency: currency,
+                        description: 'Booster Fee Payment',
+                        id: orderId
                     },
-                    displayControl: {
-                        paymentConfirmation: 'SHOW',
-                        billingAddress: 'HIDE'
-                    },
-                }
-            })
+                    interaction: {
+                        operation: 'PURCHASE',
+                        merchant: {
+                            name: "National Bank",
+                            phone: 'UAN +9221 627 627627',
+                        },
+                        displayControl: {
+                            paymentConfirmation: 'SHOW',
+                            billingAddress: 'HIDE'
+                        },
+                    }
+                })
 
-            window.Checkout.showLightbox()
-
+                window.Checkout.showLightbox()
+                sessionStorage.setItem('amount', totlalAmount)
+                sessionStorage.setItem('currency', currency)
+                sessionStorage.setItem('description', 'Covid Booster')
+            }
+            else {
+                const errorDescription = res.data.message
+                toast.error(errorDescription)
+            }
         }).catch((err) => {
             console.log(err)
             setbackdrop(false)
             toast.error('Server Error')
         })
-
-
-        // setopenSuccessDialog(true)
     }
+
     return (
         <>
             {
@@ -258,12 +269,16 @@ export default function PaymentConfirmationTable() {
                         </div>
 
                         {/* Confirm Button */}
-
                         <div className={classes.buttonContainer}>
-                            <Button innerText='Confirm' bgColor={'#009a54'} width={'200px'} HandleButtonClick={handleFeePayment} />
+                            <div>
+                                <Button innerText='Cancel' bgColor={'#e7e7e7'} color={'black'} width={'200px'} HandleButtonClick={handleFeeCancel} />
+
+                            </div>
+                            <div>
+                                <Button innerText='Confirm' bgColor={'#009a54'} width={'200px'} HandleButtonClick={handleFeePayment} />
+                            </div>
                         </div>
 
-                        <PaymentSuccessfulModal openModal={openSuccessDialog} closeModal={handleCloseModal} />
 
                         <Backdrop className={classes.backdrop} open={backdrop}>
                             <CircularProgress color="inherit" />

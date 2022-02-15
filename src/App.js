@@ -16,7 +16,6 @@ const PageNotFound = React.lazy(() => import('./Pages/PageNotFound'));
 const BoosterFeePayment = React.lazy(() => import('./Pages/BoosterFeePayment'));
 const PaymentConfirmation = React.lazy(() => import('./Pages/PaymentConfirmation'));
 const Donate = React.lazy(() => import('./Pages/Donate'));
-const Receipts = React.lazy(() => import('./Pages/Receipts'));
 
 
 
@@ -39,10 +38,9 @@ function App() {
           <Route path="payment-confirmation" element={<PaymentConfirmation />} />
           <Route path="*" element={<PageNotFound />} />
           <Route path="/donate" element={<Donate />} />
-          <Route path="/receipts" element={<Receipts />} />
         </Routes>
       </Suspense>
-      <ToastContainer theme='colored' />
+      <ToastContainer theme='colored' autoClose={8000} bodyClassName="toastBody"/>
     </>
   );
 }

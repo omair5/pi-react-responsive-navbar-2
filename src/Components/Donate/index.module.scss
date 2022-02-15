@@ -1,4 +1,5 @@
-@import "../../Utils/mixins";
+@import "../../Utils/_mixins";
+@import "../../Utils/_variables.scss";
 .mainContainer {
     padding: 20px 0px;
     .heading {
@@ -43,6 +44,7 @@
         color: white;
         padding: 15px 80px;
         font-size: 16px;
+        font-family: "Inter";
         width: 100%;
         cursor: pointer;
     }
