@@ -90,7 +90,7 @@ function TermsAndConditionModal({ open, close }) {
                     <p>
                         <strong><u>TERMS AND CONDITIONS FOR USING NBP
                             m-PAYMENT &amp; e-PAYMENT PM RELIEF FUND (&ldquo;PMRF&rdquo;)
-                            FOR COVID-19</u></strong>
+                            FOR COVID-19 & COVID-19 VACCINATION BOOSTER FEE PAYMENT</u></strong>
                     </p>
                     <p>These Terms and Conditions are applicable for the
                         Services (as defined below) and are applicable to all the
@@ -114,8 +114,10 @@ function TermsAndConditionModal({ open, close }) {
                         donate funds to PM relief funds for COVID 19.
                     </p>
                     <p>
-                        <strong>Designated Account</strong>: The PM&rsquo;s Relief
-                        Fund for COVID-19 account opened at NBP Main Branch Khi.
+                        <strong>Payer(s):</strong>&nbsp;The person who pays COVID-19 booster vaccination fee.
+                    </p>
+                    <p>
+                        <strong>Designated Account</strong>: The PM’s Relief Fund for COVID-19 account opened at NBP Main Branch Karachi.
                     </p>
                     <p>
                         <strong>Device(s) means</strong>: Mobile, digital tablets,
@@ -124,10 +126,7 @@ function TermsAndConditionModal({ open, close }) {
                         through internet.
                     </p>
                     <p>
-                        <strong>Services: &nbsp;</strong>shall mean and include such
-                        banking transactions as may be available and provided to the
-                        DONOR through its e-payments and m-payments modules for
-                        donation in PM relief fund for COVID 19.
+                        <strong>Services: &nbsp;</strong>shall mean and include such banking transactions as may be available and provided to the DONOR through its e-payments and m-payments modules for donation in PM relief fund for COVID 19 & shall also include the COVID-19 Booster Vaccination Fee Payment services.
                     </p>
                     <p>
                         <strong>NBP e-Payments:</strong> The brand name used for
@@ -138,64 +137,38 @@ function TermsAndConditionModal({ open, close }) {
                         NBP&rsquo;s Mobile Application.
                     </p>
                     <p>
-                        <strong>Service Software</strong>: Web Portal or Mobile
-                        Application that Donor will access for donation to the PM
-                        relief fund for COVID 19 from his / her computer or Mobile
-                        Device.
+                        <strong>Service Software</strong>: Web Portal or Mobile Application that Donor/Payer will access for donation to the PM relief fund and fee payment for COVID 19 from his / her computer or Mobile Device.
                     </p>
                     <p>
                         <strong>Transaction </strong>or<strong> Instruction:
-                        </strong>The transfer of any payment by the Donor to the Designated
-                        Account for the collection of donations through the use of the
-                        Services.
+                        </strong>The transfer/Payment of any funds by the Donor/payer to the Designated Account for the collection of donations & fee through the use of the Services.
                     </p>
                     <ol start="2">
                         <li><strong> In these Terms and Conditions,
                             unless the context shall otherwise require:</strong></li>
                     </ol>
                     <ol>
-                        <li>References to &ldquo;we&rdquo;, &ldquo;us&rdquo; or
-                            &ldquo;our&rdquo; are references to NBP/Bank.</li>
-                        <li>References to &ldquo;you&rdquo; or &ldquo;your&rdquo;
-                            are references to the Donor.</li>
-                        <li>The words &ldquo;include&rdquo; and
-                            &ldquo;including&rdquo; shall not be construed as having any
-                            limiting effect;</li>
-                        <li>The singular includes the plural and vice versa;</li>
-                        <li>A gender includes other genders;</li>
-                        <li>The headings are used for convenience only and do not
-                            affect the interpretation of these Terms and Conditions;</li>
-                        <li>A reference to a document includes the document as
-                            modified from time to time and any document replacing it; and</li>
+                        <li>References to “we”, “us” or “our” are references to NBP/Bank.</li>
+                        <li>References to “you” or “your” are references to the Donor and/or Payer.</li>
+                        <li>The words “include” and “including” shall not be construed as having any limiting effect.</li>
+                        <li>The singular includes the plural and vice versa.</li>
+                        <li>A gender includes other genders.</li>
+                        <li>The headings are used for convenience only and do not affect the interpretation of these Terms and Conditions.</li>
+                        <li>A reference to a document includes the document as modified from time to time and any document replacing it; and</li>
+
                     </ol>
                     <ol start="3">
                         <li><strong> Availability of Services.</strong></li>
                     </ol>
                     <ol>
-                        <li>The Service will be available only for Donors (as
-                            defined herein).</li>
-                        <li>In order to use the services, the Donors must fill in
-                            all required information to process the payment.</li>
-                        <li>The Service will only be available on Devices which
-                            meet the required specifications and configurations as
-                            specified by the Bank from time to time. Accordingly, you
-                            agree to procure and maintain a Device accessing internet and
-                            data connection which meet these requirements at your own
-                            expense.</li>
-                        <li>By accessing/availing the Services, you must be aware
-                            that the Bank at its sole discretion may, without any prior
-                            intimation or notice, discontinue the Services at any time.</li>
-                        <li>You irrevocably and unconditionally accept as binding
-                            any Service availed and/or transaction and/or instruction
-                            made or given through the Service by you at your own risk and
-                            responsibility.</li>
-                        <li>Bank's records of any transaction/service
-                            processed/availed/executed through NBP e-payments and/or
-                            m-Payments shall constitute binding and conclusive evidence
-                            of such transaction/services conducted by you.</li>
-                        <li>By availing the services, you accept that all
-                            instructions made or given by you through device in respect
-                            of Services shall be irrevocable and irreversible.</li>
+                        <li>The Service will be available only for Donors & Payers (as defined herein).</li>
+                        <li>In order to use the services, the Donors/Payers must fill in all required information to process the payment.</li>
+                        <li>The Service will only be available on Devices which meet the required specifications and configurations as specified by the Bank from time to time. Accordingly, you agree to procure and maintain a Device accessing internet and data connection which meet these requirements at your own expense.</li>
+                        <li>By accessing/availing the Services, you must be aware that the Bank at its sole discretion may, without any prior intimation or notice, discontinue the Services at any time.</li>
+                        <li>You irrevocably and unconditionally accept as binding any Service availed and/or transaction and/or instruction made or given through the Service by you at your own risk and responsibility.</li>
+                        <li>Bank's records of any transaction/service processed/availed/executed through NBP e-payments and/or m-Payments shall constitute binding and conclusive evidence of such transaction/services conducted by you.</li>
+                        <li>By availing the services, you accept that all instructions made or given by you through device in respect of Services shall be irrevocable and irreversible.</li>
+
                     </ol>
                     <ol start="4">
                         <li><strong> DEVICE COMPATIBILITY </strong></li>
@@ -224,42 +197,22 @@ function TermsAndConditionModal({ open, close }) {
                             THE DONOR/PAYER</strong></li>
                     </ol>
                     <ol>
-                        <li>you are solely responsible to follow
-                            instructions to avail Services and to adopt the security
-                            protocols and such other guidelines as may be provided by the
-                            Bank from time to time whether through notifications on its
-                            website/mobile application or otherwise.</li>
-                        <li>You must not allow anyone else to operate the Service
-                            on your behalf. In case of breach of this condition NBP shall
-                            not be liable for any loss and/or damage which may
-                            consequently occur to you.</li>
-                        <li>You must not leave the Device unattended while you
-                            are using the Application. In case of breach of this
-                            condition NBP shall not be liable for any loss and/or damage
-                            which may consequently occur to you.</li>
-                        <li>You will be held liable for all losses and expenses
-                            due to unauthorized use, if you have acted fraudulently or,
-                            with gross negligence, with intentional misconduct or if you
-                            are in default of any of the obligations described in these
-                            terms and conditions.</li>
+                        <li>You are solely responsible to follow instructions to avail Services and to adopt the security protocols and such other guidelines as may be provided by the Bank from time to time whether through notifications on its website/mobile application or otherwise.</li>
+                        <li>You must not allow anyone else to operate the Service on your behalf. In case of breach of this condition NBP shall not be liable for any loss and/or damage which may consequently occur to you.</li>
+                        <li>You must not leave the Device unattended while you are using the Application. In case of breach of this condition NBP shall not be liable for any loss and/or damage which may consequently occur to you.</li>
+                        <li>You will be held liable for all losses and expenses due to unauthorized use, if you have acted fraudulently or, with gross negligence, with intentional misconduct or if you are in default of any of the obligations described in these terms and conditions.</li>
+
                     </ol>
                     <ol start="6">
                         <li><strong> Liability for unauthorized
                             instructions:</strong></li>
                     </ol>
-                    <p>The Bank will not be liable for misuse of your device by
-                        any un-authorized person. In this respect, you are liable to
-                        take care in complying with all the security
-                        procedures/protocols and instructions passed on by the bank
-                        from time to time in this respect.</p>
+                    <p>The Bank will not be liable for misuse of your device by any un-authorized person. In this respect, you are liable to take care in complying with all the security procedures/protocols and instructions passed on by the bank from time to time in this respect.</p>
                     <ol start="7">
                         <li><strong> NBP&rsquo;S OBLIGATIONS TO ITS
                             CUSTOMERS</strong></li>
                     </ol>
-                    <p>The Bank is responsible to act on your Instructions
-                        received through this Service without obtaining any further
-                        written or other confirmation from you, even if those
-                        instructions are not actually given or authorized by you.</p>
+                    <p>The Bank is responsible to act on your Instructions received through this Service without obtaining any further written or other confirmation from you, even if those instructions are not actually given or authorized by you.</p>
                     <ol start="8">
                         <li><strong> NBP&rsquo;S AUTHORITY</strong></li>
                     </ol>
@@ -268,29 +221,10 @@ function TermsAndConditionModal({ open, close }) {
                         herein and charges / Transaction Acquiring Charges with or
                         without prior notice.</p>
                     <ol>
-                        <li>NBP, in its sole discretion, will be entitled to
-                            refuse to carry out an instruction submitted through this
-                            service.</li>
-                        <li>The Bank will in no event be liable for any damages,
-                            including without limitation direct or indirect loss,
-                            special, incidental, or consequential damages, losses or
-                            expenses arising in connection with these Services and/ or
-                            inability to use, or any failure of performance, error,
-                            omission, interruption, defect, delay in operation or
-                            transmission, computer virus or line or system failure in
-                            connection with the services.</li>
-                        <li>The information and material provided by the Bank in
-                            relation to the Service, including text, graphics, links or
-                            other items is/are provided on "as is", "as available" basis.
-                            The Bank does not warrant the accuracy, adequacy or
-                            completeness of this information and materials and expressly
-                            disclaims liability for errors or omissions in this
-                            information and material. No warranty of any kind, implied,
-                            expressed or statutory including but not limited to the
-                            warranties of non-infringement of third party rights, title,
-                            merchantability, fitness for a particular purpose and freedom
-                            from computer virus, is given in conjunction with the said
-                            information and materials.</li>
+                        <li>NBP, in its sole discretion, will be entitled to refuse to carry out an instruction submitted through this service.</li>
+                        <li>The Bank will in no event be liable for any damages, including without limitation direct or indirect loss, special, incidental, or consequential damages, losses or expenses arising in connection with these Services and/ or inability to use, or any failure of performance, error, omission, interruption, defect, delay in operation or transmission, computer virus or line or system failure in connection with the services.</li>
+                        <li>The information and material provided by the Bank in relation to the Service, including text, graphics, links or other items is/are provided on "as is", "as available" basis. The Bank does not warrant the accuracy, adequacy or completeness of this information and materials and expressly disclaims liability for errors or omissions in this information and material. No warranty of any kind, implied, expressed or statutory including but not limited to the warranties of non-infringement of third party rights, title, merchantability, fitness for a particular purpose and freedom from computer virus, is given in conjunction with the said information and materials.</li>
+
                     </ol>
                     <ol start="9">
                         <li><strong> &nbsp;PROTECTING AGAINST VIRUSES</strong></li>

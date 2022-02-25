@@ -7,8 +7,8 @@ import DonationPaymentForm from '../Components/Donate';
 
 
 const Donate = () => {
-  const headingLine1 = 'Donate to'
-  const headingLine2 = 'PM’s Relief Fund'
+  const headingLine1 = 'Donate in'
+  const headingLine2 = 'PM COVID-19 Relief Fund'
   // const paragraph = 'Suspendisse iaculis nulla turpis, id varius magna semper et. Nunc a nisl turpis. Nam id sagittis libero. Sed id ullamcorper ante. Suspendisse tempus finibus turpis, malesuada eleifend risus gravida sit amet.'
 
 

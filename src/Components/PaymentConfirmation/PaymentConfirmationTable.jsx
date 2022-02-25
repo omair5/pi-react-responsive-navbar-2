@@ -18,8 +18,6 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
 
-
-
 const StyledTableCell = withStyles((theme) => ({
     head: {
         color: '#0d1821',
@@ -96,6 +94,7 @@ export default function PaymentConfirmationTable() {
     // HANDLING ERRORS FOR PAYMENT GATEWAY 
     window.handlePgCancel = () => {
         toast.warn('Payment Process Cancelled')
+        sessionStorage.clear()
     }
     window.handleErrorCallback = () => {
         toast.error('Payment Gateway Connection Failed')
@@ -131,6 +130,7 @@ export default function PaymentConfirmationTable() {
 
     // API POST REQUEST TO SUBMIT FEE
     const handleFeePayment = () => {
+        console.log(values)
         setbackdrop(true)
         let currency;
         const country = values[0].country;
@@ -147,11 +147,8 @@ export default function PaymentConfirmationTable() {
                 name: val.fullName,
                 cnic: val.cnic,
                 email: val.email,
-                contactNumber: val.mobileNumber,
-                amount: parseInt(1290),
-                currency: currency,
-                country: country,
-                city: "",
+                contactNumber: `92${val.mobileNumber.slice(1)}`,
+                amount: '',
                 cprNumber: "",
                 date: new Date().toJSON().slice(0, 19),
                 dateOfVisit: new Date().toJSON().slice(0, 19),
@@ -166,9 +163,8 @@ export default function PaymentConfirmationTable() {
         const body = {
             country: country,
             currency: currency,
-            merchantName: "",
             paymentReqeustDetail: mappedUserDetailsArray,
-            transactionCode: "002",
+            transactionType: "BoosterFeePayment",
             requestDate: new Date().toJSON().slice(0, 19),
         }
 
@@ -209,7 +205,10 @@ export default function PaymentConfirmationTable() {
                 window.Checkout.showLightbox()
                 sessionStorage.setItem('amount', totlalAmount)
                 sessionStorage.setItem('currency', currency)
-                sessionStorage.setItem('description', 'Covid Booster')
+                sessionStorage.setItem('description', 'COVID-19 BOOSTER VACCINATION FEE')
+                sessionStorage.setItem('transactionType', 'BoosterFeePayment')
+                sessionStorage.setItem('id', orderId)
+
             }
             else {
                 const errorDescription = res.data.message

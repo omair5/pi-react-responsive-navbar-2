@@ -40,8 +40,8 @@ function App() {
           <Route path="/donate" element={<Donate />} />
         </Routes>
       </Suspense>
-      <ToastContainer theme='colored' autoClose={8000} bodyClassName="toastBody"/>
+      <ToastContainer theme='colored' autoClose={8000} bodyClassName="toastBody" limit={5} />
     </>
   );
 }
-export default App;
+export default App; 

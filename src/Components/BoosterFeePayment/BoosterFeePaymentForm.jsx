@@ -1,10 +1,8 @@
 import React from 'react';
 import { Formik, Form, FieldArray } from 'formik';
 import styles from './index.module.css'
-import { InputField, SelectField } from '../../Utils/FormikControls'
+import { InputField } from '../../Utils/FormikControls'
 import Grid from '@material-ui/core/Grid';
-import { CountryList } from '../../JsUtils/CountryList'
-import { v4 as uuidv4 } from 'uuid';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import Button from '../../Utils/Button';
 import { useNavigate } from 'react-router-dom';
@@ -12,17 +10,30 @@ import * as Yup from 'yup';
 import { ConnectedFocusError } from 'focus-formik-error'
 import { toast } from 'react-toastify';
 import currencyFormatter from 'currency-formatter';
+import { FormHelperText } from '@material-ui/core';
+import NumberFormat from 'react-number-format';
+import { useState } from 'react';
+
 
 
 
 const BoosterFeePaymentForm = () => {
     const navigate = useNavigate();
-
+    const [cnicAlreadyExist, setcnicAlreadyExist] = useState(false)
     const AmountInPakistaniRupees = 1270
     const ServiceCharges = 20
 
     const GenerateAmount = (NUmberOfPeople) => {
-        return parseInt(NUmberOfPeople) * AmountInPakistaniRupees
+        const amount = parseInt(NUmberOfPeople) * AmountInPakistaniRupees
+        return currencyFormatter.format(amount, {
+            "code": "PKR",
+            "symbol": "",
+            "thousandsSeparator": ",",
+            "decimalSeparator": ".",
+            "symbolOnLeft": true,
+            "spaceBetweenAmountAndSymbol": false,
+            "decimalDigits": 2
+        });
     }
 
     const GenerateServiceCharges = (NUmberOfPeople) => {
@@ -61,11 +72,11 @@ const BoosterFeePaymentForm = () => {
                     fullName: Yup.string().min(3, 'Name is Too Short').required('This Field is Required'),
                     cnic: Yup.string()
                         .required('This Field is Required')
-                        .min(13, 'Must be exactly 13 digits Without dashes')
-                        .max(13, 'Must be exactly 13 digits Without dashes'),
-                    email: Yup.string().email('Invalid email address').required('This Field is Required'),
+                        .min(13, 'Invalid CNIC'),
+                    // .max(13, 'Must be exactly 13 digits Without dashes'),
+                    email: Yup.string().email('Invalid email address'),
                     mobileNumber: Yup.string()
-                        .max(15, 'Incorrect Mobile Number')
+                        .min(11, 'Incorrect Mobile Number')
                         .required('This Field is Required'),
                 })
             )
@@ -73,11 +84,32 @@ const BoosterFeePaymentForm = () => {
 
     // HANDLE SUBMIT
     const HandleProceedForPay = (values) => {
-        navigate('/payment-confirmation', {
-            state: {
-                values: values.userDetails
-            }
-        })
+        const cnicNumbers = values.userDetails.map(val => val.cnic)
+        const sameCincExist = cnicNumbers.filter((val, index) => cnicNumbers.indexOf(val) !== index)
+        if (sameCincExist.length > 0) {
+            toast.error('Multiple People Can not Have Same CNIC Numbers')
+            setcnicAlreadyExist(true)
+        }
+        else {
+            setcnicAlreadyExist(false)
+            navigate('/payment-confirmation', {
+                state: {
+                    values: values.userDetails
+                }
+            })
+        }
+    }
+
+    const ValidateCnic = (value, userDetails, index) => {
+        const cnicNumbers = userDetails.map(val => val.cnic)
+        const sameCincExist = cnicNumbers.filter((val, index) => cnicNumbers.indexOf(val) !== index)
+        if (sameCincExist.length > 0) {
+            toast.error('CNIC Number can not be Same nor Empty')
+            setcnicAlreadyExist(true)
+        }
+        else {
+            setcnicAlreadyExist(false)
+        }
     }
 
     return (
@@ -93,22 +125,21 @@ const BoosterFeePaymentForm = () => {
                                 <FieldArray name='userDetails'>
                                     {
                                         ({ push, remove, form: { values: { userDetails } } }) => {
-
-                                            if (userDetails.length > 1) {
-                                                const selectedCountry = userDetails[0].country
-                                                const mappingCountry = userDetails.slice(1).map(val => ({
-                                                    fullName: val.fullName,
-                                                    cnic: val.cnic,
-                                                    email: val.email,
-                                                    mobileNumber: val.mobileNumber,
-                                                    country: selectedCountry,
-                                                    disabled: true
-                                                }))
-                                                formikProps.values.userDetails = [userDetails[0], ...mappingCountry]
-                                            }
-                                            else {
-                                                formikProps.values.userDetails = [...userDetails]
-                                            }
+                                            // if (userDetails.length > 1) {
+                                            //     const selectedCountry = userDetails[0].country
+                                            //     const mappingCountry = userDetails.slice(1).map(val => ({
+                                            //         fullName: val.fullName,
+                                            //         cnic: val.cnic,
+                                            //         email: val.email,
+                                            //         mobileNumber: val.mobileNumber,
+                                            //         country: selectedCountry,
+                                            //         disabled: true
+                                            //     }))
+                                            //     formikProps.values.userDetails = [userDetails[0], ...mappingCountry]
+                                            // }
+                                            // else {
+                                            //     formikProps.values.userDetails = [...userDetails]
+                                            // }
 
                                             return (
                                                 // USER DETAILS FORM
@@ -129,7 +160,7 @@ const BoosterFeePaymentForm = () => {
                                                                         }
                                                                     </div>
                                                                 </Grid>
-                                                                {/* name */}
+                                                                {/* name*/}
                                                                 <Grid item xs={12} sm={12} md={6} lg={4}>
                                                                     <InputField
                                                                         name={`userDetails[${index}].fullName`}
@@ -147,7 +178,7 @@ const BoosterFeePaymentForm = () => {
 
                                                                 {/* cnic */}
                                                                 <Grid item xs={12} sm={12} md={6} lg={4}>
-                                                                    <InputField
+                                                                    {/* <InputField
                                                                         name={`userDetails[${index}].cnic`}
                                                                         type="text"
                                                                         placeholder="CNIC / NICOP Without Dashes *"
@@ -160,7 +191,29 @@ const BoosterFeePaymentForm = () => {
                                                                             }
                                                                         }}
 
+                                                                        onBlur={(e) => {
+                                                                            ValidateCnic(value, userDetails, index)
+
+                                                                        }}
+                                                                    /> */}
+
+                                                                    <NumberFormat
+                                                                        format="#####-#######-#"
+                                                                        customInput={InputField}
+                                                                        name={`userDetails[${index}].cnic`}
+                                                                        placeholder='CNIC / NICOP *'
+                                                                        className={styles.inputField}
+                                                                        inputMode='numeric'
+                                                                        onValueChange={(e) => {
+                                                                            formikProps.setFieldValue(`userDetails[${index}].cnic`, e.value)
+                                                                        }}
+
+                                                                        onBlur={(e) => {
+                                                                            ValidateCnic(value, userDetails, index)
+
+                                                                        }}
                                                                     />
+
                                                                 </Grid>
 
                                                                 {/* email */}
@@ -176,10 +229,10 @@ const BoosterFeePaymentForm = () => {
 
                                                                 {/* number */}
                                                                 <Grid item xs={12} sm={12} md={6} lg={4}>
-                                                                    <InputField
+                                                                    {/* <InputField
                                                                         name={`userDetails[${index}].mobileNumber`}
                                                                         type="text"
-                                                                        placeholder='Mobile Number'
+                                                                        placeholder='Mobile Number *'
                                                                         className={styles.inputField}
                                                                         inputMode='numeric'
                                                                         maxLength={15}
@@ -188,19 +241,70 @@ const BoosterFeePaymentForm = () => {
                                                                                 formikProps.setFieldValue(`userDetails[${index}].mobileNumber`, e.target.value)
                                                                             }
                                                                         }}
+                                                                    /> */}
+
+                                                                    <NumberFormat
+                                                                        format="###########"
+                                                                        customInput={InputField}
+                                                                        className={styles.inputField}
+                                                                        name={`userDetails[${index}].mobileNumber`}
+                                                                        placeholder='Mobile Number *'
+                                                                        inputMode='numeric'
+                                                                        onValueChange={(e) => {
+                                                                            // console.log(e.value)
+                                                                            // const firstDigit = e.value.slice(0, 1)
+                                                                            // const secondDigit = e.value.slice(1, 2)
+                                                                            // if ((firstDigit !== '0') && (secondDigit !== '3')) {
+                                                                            //     // toast.error('bc')
+                                                                            //     return
+                                                                            // }
+
+                                                                            // console.log(firstDigit, secondDigit)
+                                                                            formikProps.setFieldValue(`userDetails[${index}].mobileNumber`, e.value)
+                                                                        }}
+
+                                                                        isAllowed={(values) => {
+                                                                            const { value } = values;
+                                                                            if (value[0] === undefined) {
+                                                                                return true
+                                                                            }
+                                                                            if (value[0] !== "0") {
+                                                                                return false;
+                                                                            }
+                                                                            if (value[1] !== undefined) {
+                                                                                if (value[1] !== "3") {
+                                                                                    return false
+                                                                                }
+                                                                            }
+                                                                            return true;
+                                                                        }}
+
                                                                     />
+                                                                    <FormHelperText>e.g: 03XXXXXXXXX</FormHelperText>
                                                                 </Grid>
 
                                                                 {/* country */}
-                                                                <Grid item xs={12} sm={12} md={6} lg={4}>
-                                                                    <SelectField name={`userDetails[${index}].country`} disabled={value.disabled} value={value.country} className={styles.inputField} >
-                                                                        {/* <option value={value.country}>Pakistan</option> */}
-                                                                        {
+                                                                {/* <Grid item xs={12} sm={12} md={6} lg={4}>
+                                                                    <SelectField name={`userDetails[${index}].country`} disabled={value.disabled} value={value.country} className={styles.inputField} > */}
+                                                                {/* <option value={value.country}>Pakistan</option> */}
+                                                                {/* {
                                                                             CountryList.map((country) => (
                                                                                 <option value={country} key={uuidv4()}>{country}</option>
                                                                             ))
                                                                         }
                                                                     </SelectField>
+                                                                </Grid> */}
+
+                                                                {/* COUNTRY */}
+                                                                <Grid item xs={12} sm={12} md={6} lg={4}>
+                                                                    <InputField
+                                                                        name={`userDetails[${index}].country`}
+                                                                        type="text"
+                                                                        placeholder="Country *"
+                                                                        className={styles.inputField}
+                                                                        maxLength={50}
+                                                                        disabled={true}
+                                                                    />
                                                                 </Grid>
                                                             </Grid>
                                                         ))
@@ -211,7 +315,7 @@ const BoosterFeePaymentForm = () => {
                                                     <Grid item xs={12} sm={12} md={7} lg={5} className={styles.buttonContainer}>
                                                         <button className={styles.buttonStyle} type='button' onClick={() => {
                                                             if (userDetails.length === 5) {
-                                                                toast.info(`Sorry, You Can Not Add More Than 5 Entries`)
+                                                                toast.info(`Sorry, Not Allowed To Add More Than 5 People at a Time`)
                                                             }
                                                             else {
                                                                 push({
@@ -229,7 +333,7 @@ const BoosterFeePaymentForm = () => {
 
                                                         <p>
                                                             To add more people to the list,
-                                                            please click the add button given on the left.
+                                                            please click the add more button given on the left.
                                                         </p>
                                                     </Grid>
 
@@ -257,7 +361,7 @@ const BoosterFeePaymentForm = () => {
                                         </Grid>
 
                                         <Grid item xs={12} sm={12} md={6} lg={2}>
-                                            <p>Services<br />Charges</p>
+                                            <p>Service<br />Charges</p>
                                             <h2>
                                                 {GenerateServiceCharges(formikProps.values.userDetails.length)}
                                             </h2>
@@ -280,8 +384,9 @@ const BoosterFeePaymentForm = () => {
                                 {/* PROCESS FOR PAY */}
                                 <Grid>
                                     <Grid item xs={12} sm={12} md={6} lg={4}>
-                                        <Button innerText="Proceed For Pay" bgColor={'#009a54'} type='submit' />
+                                        <Button innerText="Proceed to Pay" bgColor={'#009a54'} type='submit' />
                                     </Grid>
+                                    {cnicAlreadyExist && <p className={styles.cnicError}>Multiple People Can not have Same CNIC Number</p>}
                                 </Grid>
 
                             </Form>

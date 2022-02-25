@@ -8,8 +8,8 @@ import BoosterFeePaymentForm from "../Components/BoosterFeePayment/BoosterFeePay
 
 const BoosterFeePayment = () => {
 
-  const headingLine1 = 'Covid Vaccination'
-  const headingLine2 = 'Booster Fee Payment'
+  const headingLine1 = 'COVID-19 Booster'
+  const headingLine2 = 'Vaccination Fee Payment'
   // const paragraph = 'Suspendisse iaculis nulla turpis, id varius magna semper et. Nunc a nisl turpis. Nam id sagittis libero. Sed id ullamcorper ante. Suspendisse tempus finibus turpis, malesuada eleifend risus gravida sit amet.'
 
   return (

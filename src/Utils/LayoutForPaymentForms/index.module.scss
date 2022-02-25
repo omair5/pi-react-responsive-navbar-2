@@ -1,4 +1,5 @@
 @import "../_variables.scss";
+@import "../_mixins.scss";
 
 .mainContainer {
     background-color: $theme-payment-container;
@@ -7,10 +8,10 @@
         padding: 60px 2vw;
     }
     .heading {
-        font-size: 48px;
-        font-size: clamp(1.5rem, 6.8vw, 3rem);
-        font-weight: 300;
-        color: $theme-black;
+        font-size: 32px;
+        font-size: clamp(1.5rem, 6.8vw, 2rem);
+        font-weight: 900;
+        color: $theme-primary;
     }
     .paragraph {
         font-size: 16px;

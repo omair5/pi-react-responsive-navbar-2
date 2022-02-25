@@ -32,7 +32,7 @@ const AboutReliefFunds = () => {
                                 <img src={Hands} alt="donate logo" />
                             </div>
                             <div className={styles.rightColumn}>
-                                <h4>Donate in PM’s Relief Fund</h4>
+                                <h4>Donate in PM COVID-19 Relief Fund</h4>
                                 <p>Through this fund, we are trying to reach out as many needy people as possible.</p>
                                 {/* this is custom button component which accepts following props (innerText, type, HandleButtonClick, color, bgColor, width )*/}
                                 <Link to='/donate' style={{ textDecoration: 'none' }}><Button innerText='Donate Now' color='#0d1821' bgColor='white' /></Link>
@@ -46,7 +46,7 @@ const AboutReliefFunds = () => {
                                 <img src={Booster} alt="covid dose" />
                             </div>
                             <div className={styles.rightColumn}>
-                                <h4>Covid Vaccination Booster</h4>
+                                <h4>COVID Vaccination Booster</h4>
                                 <p>Through this fund, we are trying to reach out as many needy people as possible.</p>
                                 {/* this is custom button component which accepts following props (innerText, type, HandleButtonClick, color, bgColor, width ) */}
                                 <Link to='/booster-fee-payment' style={{ textDecoration: 'none' }}><Button innerText='Fee Payment' color='#0d1821' bgColor='white' /></Link>

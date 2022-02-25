@@ -21,7 +21,7 @@ const IntroSection = () => {
                                     <h1>
                                         The Prime Minister's <br />
                                         Covid 19 Pandemic <br />
-                                        Relief Fund 2021
+                                        Relief Fund 2020
                                     </h1>
                                 </strong>
                                 <p>

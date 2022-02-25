@@ -27,7 +27,7 @@
 }
 
 .mainContainer {
-    margin: 10vh 0;
+    margin: 4vh 0;
 }
 
 .header {
@@ -44,7 +44,7 @@
     }
     p {
         font-size: 24px;
-        font-weight: normal;
+        font-weight: bolder;
         color: $theme-black;
     }
 }
@@ -76,6 +76,11 @@
             margin-top: 20px;
         }
     }
+}
+.cnicError {
+    color: rgb(255, 55, 55);
+    font-size: 12px;
+    padding: 7px 0px;
 }
 
 @media screen and (max-width: 960px) {

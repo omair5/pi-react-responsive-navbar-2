@@ -1,8 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;500;600&display=swap");
-.mainContainer {
-  padding: 20px 0px;
-}
-
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;500;600&display=swap");
 .mainContainer .heading {
   font-size: 24px;
   font-weight: normal;
@@ -71,6 +68,7 @@
   color: white;
   padding: 15px 80px;
   font-size: 16px;
+  font-family: "Inter";
   width: 100%;
   cursor: pointer;
 }

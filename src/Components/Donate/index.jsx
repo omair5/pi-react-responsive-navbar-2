@@ -9,13 +9,15 @@ import { v4 as uuidv4 } from 'uuid';
 import TermsAndConditionModal from '../Payments/TermsAndConditionModal';
 // import FundsDonateDetail from '../../services/PostServices/FundsDonateDetail';
 import BankAlfalah from '../../Assets/Images/baf.png'
-import MasterCard from '../../Assets/Images/masterCard.png'
+import MasterCard from '../../Assets/Images/mastercard.png'
 import { base_url } from "../../Config"
 import axios from 'axios';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
 import { toast } from 'react-toastify';
+import NumberFormat from 'react-number-format';
+
 
 
 
@@ -34,10 +36,14 @@ const DonationPaymentForm = () => {
     const [backdrop, setbackdrop] = React.useState(false);
     const [openUserConsentDialog, setopenUserConsentDialog] = useState(false)
 
+    // const removeNonNumeric = (num) => num.toString().replace(/[^0-9]/g, "")
+
+    // const addCommas = (num) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 
     // HANDLING ERRORS FOR PAYMENT GATEWAY 
     window.handlePgCancel = () => {
         toast.warn('Payment Process Cancelled')
+        sessionStorage.clear()
     }
     window.handleErrorCallback = () => {
         toast.error('Payment gateway Connection Error')
@@ -73,8 +79,7 @@ const DonationPaymentForm = () => {
             .min(3, 'Name Should Have Atleast 3 Characters')
             .required('Valid Name is Required'),
         email: Yup.string()
-            .email('Invalid email address')
-            .required('Valid Email is Required'),
+            .email('Invalid email address'),
         amount: Yup.string().required('Valid Amount is Required'),
         acceptedTerms: Yup.boolean()
             .required('Required')
@@ -83,22 +88,20 @@ const DonationPaymentForm = () => {
 
     // Handle Submit
     const HandleSubmit = (values) => {
+        let formatAmount = values.amount.replaceAll(',', '')
+        formatAmount = Number(formatAmount)
 
         setbackdrop(true)
 
         const body = {
             country: values.country,
             currency: values.currency,
-            merchantName: "",
             paymentReqeustDetail: [
                 {
-                    amount: parseInt(values.amount),
-                    city: "",
+                    amount: formatAmount,
                     cnic: "",
                     contactNumber: "",
-                    country: values.country,
                     cprNumber: "",
-                    currency: values.currency,
                     date: new Date().toJSON().slice(0, 19),
                     dateOfVisit: new Date().toJSON().slice(0, 19),
                     email: values.email,
@@ -109,13 +112,12 @@ const DonationPaymentForm = () => {
                     sessionId: ""
                 }
             ],
-            transactionCode: "003",
+            transactionType: "Donation",
             requestDate: new Date().toJSON().slice(0, 19),
         }
 
         axios.post(apiURL, body).then((res) => {
             setbackdrop(false)
-
             if (res.status === 200) {
                 sessionStorage.clear()
                 const session_id = res?.data?.data?.sessionId
@@ -154,7 +156,10 @@ const DonationPaymentForm = () => {
 
                 sessionStorage.setItem('amount', totlalAmount)
                 sessionStorage.setItem('currency', currency)
-                sessionStorage.setItem('description', 'PM’s Relief Fund')
+                sessionStorage.setItem('description', `DONATION IN PRIME MINISTER'S COVID-19 RELIEF FUND-2020`)
+                sessionStorage.setItem('transactionType', 'Donation')
+                sessionStorage.setItem('id', orderId)
+
             }
 
             else {
@@ -179,12 +184,12 @@ const DonationPaymentForm = () => {
                     <Form>
                         <div className={styles.heading}>Your Details</div>
                         <Grid >
-                            {/* name */}
+                            {/* NAME*/}
                             <Grid item xs={12} sm={12} md={6} lg={4}>
                                 <InputField
                                     name="name"
                                     type="text"
-                                    placeholder="Full Name"
+                                    placeholder="Full Name *"
                                     className={styles.inputField}
                                     maxLength={50}
                                     onChange={(e) => {
@@ -195,7 +200,7 @@ const DonationPaymentForm = () => {
                                 />
                             </Grid>
 
-                            {/* email */}
+                            {/* EMAIL */}
                             <Grid item xs={12} sm={12} md={6} lg={4}>
                                 <InputField
                                     name="email"
@@ -207,6 +212,7 @@ const DonationPaymentForm = () => {
                                 />
                             </Grid>
 
+                            {/* COUNTRY */}
                             <Grid item xs={12} sm={12} md={6} lg={4}>
                                 {/* country */}
                                 <SelectField name="country" className={styles.inputField} >
@@ -219,6 +225,7 @@ const DonationPaymentForm = () => {
                                 </SelectField>
                             </Grid>
 
+                            {/* CURRENCY */}
                             <Grid item xs={12} sm={12} md={6} lg={4}>
                                 {/* currency */}
                                 <InputField
@@ -230,9 +237,10 @@ const DonationPaymentForm = () => {
                                 />
                             </Grid>
 
+                            {/* AMOUNT */}
                             <Grid item xs={12} sm={12} md={6} lg={4}>
                                 {/* amount */}
-                                <InputField
+                                {/* <InputField
                                     name="amount"
                                     type="text"
                                     placeholder='Amount'
@@ -243,9 +251,30 @@ const DonationPaymentForm = () => {
                                         if (e.target.value === '0') {
                                             return
                                         }
-                                        else if (e.target.value.match(/^[0-9]*$/)) {
-                                            formikProps.setFieldValue('amount', e.target.value)
+                                        formikProps.setFieldValue('amount', addCommas(removeNonNumeric(e.target.value)))
+                                    }}
+                                /> */}
+
+                                <NumberFormat
+                                    name="amount"
+                                    placeholder='Amount *'
+                                    customInput={InputField}
+                                    thousandSeparator={true}
+                                    prefix={formikProps.values.currency === 'PKR' ? 'Rs.' : '$'}
+                                    className={styles.inputField}
+                                    inputMode='numeric'
+                                    maxLength={15}
+                                    decimalScale={0}
+                                    onValueChange={(e) => {
+                                        formikProps.setFieldValue('amount', e.value)
+                                    }}
+
+                                    isAllowed={(values) => {
+                                        const { value } = values;
+                                        if (value[0] === "0" || value[0] === "-") {
+                                            return false;
                                         }
+                                        return true;
                                     }}
                                 />
                             </Grid>
@@ -262,7 +291,7 @@ const DonationPaymentForm = () => {
                         <Grid item xs={12} sm={12} md={6} lg={4} className={styles.buttonContainer}>
 
                             <button className={styles.buttonStyle} type='submit'  >
-                                Proceed For Pay
+                                Proceed to Pay
                             </button>
                         </Grid>
                     </Form>
@@ -272,10 +301,10 @@ const DonationPaymentForm = () => {
 
             <div className={styles.logoContainer}>
                 <div>
-                    <img src={BankAlfalah} alt="bank alfalah logo" height={'30px'} width={'50px'} />
+                    <img src={BankAlfalah} alt="bank alfalah logo" height={'40px'} />
                 </div>
                 <div className={styles.masterCardLogo}>
-                    <img src={MasterCard} alt="master card logo" height={'35px'} width={'100px'} />
+                    <img src={MasterCard} alt="master card logo" height={'45px'} />
                 </div>
             </div>
 
