@@ -17,7 +17,7 @@ const Home = () => {
   const [openSuccessDialog, setopenSuccessDialog] = useState(false);
   const [backdrop, setbackdrop] = useState(false)
 
-
+  // CHECKING SUCCESS RESPONSE IN PARAMS
   useEffect(() => {
     if (location.search.includes('resultIndicator') && location.search.includes('sessionVersion') && sessionStorage.getItem('amount') && sessionStorage.getItem('currency') && sessionStorage.getItem('description')) {
       setopenSuccessDialog(true)
@@ -52,9 +52,8 @@ const Home = () => {
   };
 
 
-  // Handle Success Modal
+  // HANDLE SUCCESS POP UP
   const handleCloseModal = () => {
-    console.log('clicked')
     setopenSuccessDialog(false)
     navigate('/')
     sessionStorage.clear()
@@ -65,9 +64,7 @@ const Home = () => {
     <Layout>
       <IntroSection />
       <AboutReliefFunds />
-
       <PaymentSuccessfulModal openModal={openSuccessDialog} closeModal={handleCloseModal} HandlePdfDownload={DownloadPdf} circularProgress={backdrop} />
-
     </Layout>
   );
 };

@@ -15,11 +15,9 @@ const BoosterFeePayment = () => {
   return (
     <Layout>
       <ImageHeaderForPaymentForms backGroundImage={BoosterHeader} />
-
       <LayoutForPaymentForms headingLine1={headingLine1} headingLine2={headingLine2} >
         <BoosterFeePaymentForm />
       </LayoutForPaymentForms>
-
     </Layout>
   );
 };

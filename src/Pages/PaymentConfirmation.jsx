@@ -15,11 +15,9 @@ const PaymentConfirmation = () => {
 
     <Layout >
       <ImageHeaderForPaymentForms backGroundImage={BoosterHeader} />
-
       <LayoutForPaymentForms headingLine1={headingLine1} headingLine2={headingLine2}>
         <PaymentConfirmationTable />
       </LayoutForPaymentForms>
-
     </Layout>
   );
 }

@@ -14,13 +14,10 @@ const Donate = () => {
 
   return (
     <Layout >
-
       <ImageHeaderForPaymentForms backGroundImage={DonateImage} />
-
       <LayoutForPaymentForms headingLine1={headingLine1} headingLine2={headingLine2} >
         <DonationPaymentForm />
       </LayoutForPaymentForms>
-
     </Layout>
   );
 }

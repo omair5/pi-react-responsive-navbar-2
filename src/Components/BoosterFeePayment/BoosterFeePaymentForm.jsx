@@ -53,7 +53,7 @@ const BoosterFeePaymentForm = () => {
         });
     }
 
-    // formik initial values
+    // FORMIK INITIAL VALUES
     const initialValues = {
         userDetails: [{
             fullName: '',
@@ -64,7 +64,7 @@ const BoosterFeePaymentForm = () => {
         }]
     }
 
-    // Validation Schema
+    // YUP VALIDATION SCHEMA
     const validationSchema = Yup.object({
         userDetails: Yup.array()
             .of(

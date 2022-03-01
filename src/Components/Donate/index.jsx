@@ -63,7 +63,7 @@ const DonationPaymentForm = () => {
     };
 
 
-    // formik initial values
+    // FORMIK INITIAL VALUES
     const initialValues = {
         name: '',
         email: '',
@@ -73,7 +73,7 @@ const DonationPaymentForm = () => {
         acceptedTerms: false,
     }
 
-    // validation schema
+    // YUP VALIDATION SCHEMA
     const validationSchema = Yup.object({
         name: Yup.string()
             .min(3, 'Name Should Have Atleast 3 Characters')
@@ -86,7 +86,7 @@ const DonationPaymentForm = () => {
             .oneOf([true], 'You must accept the terms and conditions.'),
     })
 
-    // Handle Submit
+    // HANDLE SUBMIT
     const HandleSubmit = (values) => {
         let formatAmount = values.amount.replaceAll(',', '')
         formatAmount = Number(formatAmount)
@@ -124,7 +124,6 @@ const DonationPaymentForm = () => {
                 const totlalAmount = res?.data?.data?.totlalAmount
                 const orderId = res?.data?.data?.orderId
                 const currency = values?.currency
-                // const merchantName = res.data.data.merchantId
 
                 // PG METHOD
                 window.Checkout.configure({
@@ -159,14 +158,12 @@ const DonationPaymentForm = () => {
                 sessionStorage.setItem('description', `DONATION IN PRIME MINISTER'S COVID-19 RELIEF FUND-2020`)
                 sessionStorage.setItem('transactionType', 'Donation')
                 sessionStorage.setItem('id', orderId)
-
             }
 
             else {
                 const errorDescription = res.data.message
                 toast.error(errorDescription)
             }
-
 
         }).catch((err) => {
             console.log(err)
