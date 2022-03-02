@@ -68,6 +68,9 @@ const useStyles = makeStyles((theme) => ({
         marginTop: '20px',
         display: 'flex',
         justifyContent: 'flex-end',
+        [theme.breakpoints.down('md')]: {
+            justifyContent: 'center',
+        },
         "& div": {
             marginLeft: '15px'
         }
@@ -270,11 +273,11 @@ export default function PaymentConfirmationTable() {
                         {/* Confirm Button */}
                         <div className={classes.buttonContainer}>
                             <div>
-                                <Button innerText='Cancel' bgColor={'#e7e7e7'} color={'black'} width={'200px'} HandleButtonClick={handleFeeCancel} />
+                                <Button innerText='Cancel' bgColor={'#e7e7e7'} color={'black'} width={'160px'} HandleButtonClick={handleFeeCancel} />
 
                             </div>
                             <div>
-                                <Button innerText='Confirm' bgColor={'#009a54'} width={'200px'} HandleButtonClick={handleFeePayment} />
+                                <Button innerText='Confirm' bgColor={'#009a54'} width={'160px'} HandleButtonClick={handleFeePayment} />
                             </div>
                         </div>
 

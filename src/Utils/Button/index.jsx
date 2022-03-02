@@ -21,12 +21,13 @@ const useStyles = makeStyles(() => ({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        transition: 'all 0.5s ease-in-out',
+        borderRadius: "5px",
+        transition: 'transform 0.5s ease-in-out',
         "& div": {
             marginRight: '5px'
         },
         '&:hover': {
-            transform: 'scale(1.01)'
+            transform: 'scale(1.02)'
         }
     },
 }));

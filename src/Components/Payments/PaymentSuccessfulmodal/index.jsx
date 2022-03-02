@@ -122,7 +122,7 @@ export default function PaymentSuccessfulModal({ openModal, closeModal, HandlePd
                         <div>Date: <span>{`${new Date()}`}</span></div>
                         <div>Amount:<span>{`${currency} ${(GenerateTotalAmount(amount))}`}</span></div>
                     </div>
-                    <Button innerText='Download PDF' bgColor='#209e65' width={'50%'} icon={<PictureAsPdfIcon />} HandleButtonClick={HandlePdfDownload} circularProgress={circularProgress} />
+                    <Button innerText='Download PDF' bgColor='#209e65' width={'70%'} icon={<PictureAsPdfIcon />} HandleButtonClick={HandlePdfDownload} circularProgress={circularProgress} />
                 </div>
             </Fade>
         </Modal>
