@@ -4,7 +4,7 @@ import Slide from "@material-ui/core/Slide";
 import AlfalahLogo from "../../../Assets/Images/baf.png";
 import Grid from "@material-ui/core/Grid";
 import styles from './index.module.css'
-import LargeVaccineImg from '../../../Assets/Images/vaccine-2-x.png'
+import LargeVaccineImg from '../../../Assets/Images/vaccine-large.png'
 
 
 
@@ -19,14 +19,16 @@ const IntroSection = () => {
                             <div>
                                 <strong>
                                     <h1>
-                                        The Prime Minister's <br />
-                                        Covid 19 Pandemic <br />
-                                        Relief Fund 2020
+                                        National Bank of Pakistan <br />
+                                        Donation Programme <br />
+                                        2022
                                     </h1>
                                 </strong>
                                 <p>
-                                    you can donate from across the globe to the prime Minister's
-                                    Covid-19 pandemic relief fund with your debit card/credit Card.
+                                    You can donate from across the globe to the
+                                    National Bank of Pakistan’s Donation
+                                    Programme with your debit/credit card.
+
                                 </p>
                                 <img src={AlfalahLogo} alt="AlFalah" height="50px" className={styles.alfalah_logo} />
                             </div>

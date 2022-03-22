@@ -1,12 +1,12 @@
 import React from 'react';
-import Booster from "../../../Assets/Images/booster.png";
 import Hands from "../../../Assets/Images/hands.png";
 import styles from "./index.module.css"
 import Container from "@material-ui/core/Container";
 import Grid from '@material-ui/core/Grid';
 import Button from '../../../Utils/Button';
 import { Link } from 'react-router-dom';
-
+import CreditCardIcon from '@material-ui/icons/CreditCard';
+import Paper from '@material-ui/core/Paper';
 
 
 const AboutReliefFunds = () => {
@@ -16,42 +16,47 @@ const AboutReliefFunds = () => {
                 <Grid container className={styles.header}>
                     <Grid xs={12} md={7}>
                         <h2 >
-                            About Prime Minister's <br />
-                            Relief Fund
+                            About NBP <br />
+                            Donation Programme
                         </h2>
                         <p>
-                            The Prime Minister has launched a web-portal soliciting applications from those who have lost their livelihoods as a result of the COVID-19 pandemic and has announced to commit the Prime Minister's COVID 19 relief Fund to those who will qualify for assistance. On March 31,2020 the Prime Ministers’ COVID 19 Relief fund was announced.
+                            On the Prime Minister of Pakistan’s special instructions, a fund has been established to solicit public donations for expansion of the Prime Minister’s Mobile Langar/Soup kitchen initiative. Many of the recipients are the labour class including the elderly, differently abled, labourers, daily wage earners, women and children. You can deposit your donations in any of the banks’ branches across the country or online.
                         </p>
                     </Grid>
                 </Grid>
 
                 <Grid container spacing={3} className={styles.card_container}>
                     <Grid xs={12} md={4} className={styles.marginRight}>
-                        <div className={styles.card}>
-                            <div>
-                                <img src={Hands} alt="donate logo" />
-                            </div>
-                            <div className={styles.rightColumn}>
-                                <h4>Donate in PM COVID-19 Relief Fund</h4>
-                                <p>Through this fund, we are trying to reach out as many needy people as possible.</p>
-                                {/* this is custom button component which accepts following props (innerText, type, HandleButtonClick, color, bgColor, width )*/}
-                                <Link to='/donate' style={{ textDecoration: 'none' }}><Button innerText='Donate Now' color='#0d1821' bgColor='white' /></Link>
-                            </div>
-                        </div>
+                        <Link to="/donation-programmes" style={{ textDecoration: 'none' }}>
+                            <Paper className={styles.card} elevation={3}>
+                                <div>
+                                    <img src={Hands} alt="donate logo" />
+                                </div>
+                                <div className={styles.rightColumn}>
+                                    <h2>DONATION</h2>
+                                    <p>Through this fund, we are trying to reach out as many needy people as possible.</p>
+                                    {/* this is custom button component which accepts following props (innerText, type, HandleButtonClick, color, bgColor, width )*/}
+                                    <Button innerText='Donate Now' color='#0d1821' bgColor='white' />
+                                </div>
+                            </Paper>
+                        </Link>
                     </Grid>
 
                     <Grid xs={12} md={4} className={styles.feePayment}>
-                        <div className={styles.card}>
-                            <div>
-                                <img src={Booster} alt="covid dose" />
-                            </div>
-                            <div className={styles.rightColumn}>
-                                <h4>COVID Vaccination Booster</h4>
-                                <p>Through this fund, we are trying to reach out as many needy people as possible.</p>
-                                {/* this is custom button component which accepts following props (innerText, type, HandleButtonClick, color, bgColor, width ) */}
-                                <Link to='/booster-fee-payment' style={{ textDecoration: 'none' }}><Button innerText='Fee Payment' color='#0d1821' bgColor='white' /></Link>
-                            </div>
-                        </div>
+                        <Link to='/booster-fee-payment' style={{ textDecoration: 'none' }}>
+                            <Paper className={styles.card} elevation={3}>
+                                <div>
+                                    {/* <img src={Booster} alt="covid dose" /> */}
+                                    <CreditCardIcon className={styles.creditCard} />
+                                </div>
+                                <div className={styles.rightColumn}>
+                                    <h2>FEE PAYMENT</h2>
+                                    <p>Through this fund, we are trying to reach out as many needy people as possible.</p>
+                                    {/* this is custom button component which accepts following props (innerText, type, HandleButtonClick, color, bgColor, width ) */}
+                                    <Button innerText='Fee Payment' color='#0d1821' bgColor='white' />
+                                </div>
+                            </Paper>
+                        </Link>
                     </Grid>
                 </Grid>
 
@@ -59,11 +64,11 @@ const AboutReliefFunds = () => {
 
                 {/* OUR CHALLENGE */}
                 <div className={styles.ourChallenge}>
-                    <h2>Our Challenge</h2>
+                    <h2>Our Objective</h2>
                     <Grid container spacing={3}>
                         <Grid xs={12} md={4}>
-                            <p> The COVID-19 pandemic is one of the worst health and economic crises in modern history and it continues to require the best of humanity to overcome. Your donation to this fund will help stop the spread of the virus, including the highly contagious Omicron variant, to protect us all.</p>
-                            <p> This ongoing health crisis, and new COVID variants, threaten everyone's way of life. The pandemic is especially difficult for people with pre-existing medical conditions, older adults, individuals experiencing homelessness, persons with disabilities, refugees and migrants, wage workers, communities of color, and those with inflexible jobs.</p>
+                            <p> Ehsaas programme is a flagship social protection lead towards a welfare state that is embodied in Constitution of Pakistan.</p>
+                            <p> It is to create precision safety nets; promoting financial inclusion and access to digital services; supporting the economic empowerment of women; focusing on the central role of human capital formation for poverty eradication, economic growth and sustainable development; and overcoming financial barriers to accessing health and post-secondary education.</p>
                         </Grid>
                     </Grid>
                 </div>

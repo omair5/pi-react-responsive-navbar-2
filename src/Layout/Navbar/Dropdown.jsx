@@ -17,10 +17,17 @@ function Dropdown() {
             <div>
                 <Link
                     className='dropdown-link'
-                    to='/donate'
+                    to='/donate-to-pm-relief-fund'
                     onClick={() => setClick(false)}
                 >
                     Donate in PM Relief Fund COVID-19
+                </Link>
+                <Link
+                    className='dropdown-link'
+                    to='/donate-to-ehsaas-programme'
+                    onClick={() => setClick(false)}
+                >
+                    Donate In Ehsaas Program
                 </Link>
                 <Link
                     className='dropdown-link'

@@ -52,7 +52,11 @@ function Navbar() {
                     <div className={'show-dropdown-for-mobile'} >
 
                         <li className='nav-item'>
-                            <Link to='/donate' className='nav-links' onClick={closeMobileMenu}>Donate in PM Relief Fund COVID-19</Link>
+                            <Link to='/donate-to-pm-relief-fund' className='nav-links' onClick={closeMobileMenu}>Donate in PM Relief Fund COVID-19</Link>
+                        </li>
+
+                        <li className='nav-item'>
+                            <Link to='/donate-to-ehsaas-programme' className='nav-links' onClick={closeMobileMenu}> Donate In Ehsaas Program</Link>
                         </li>
 
                         <li className='nav-item'>
@@ -73,7 +77,7 @@ function Navbar() {
                     </li>
 
                     <li className='nav-item'>
-                        <Link className='donate_link' to='/donate' onClick={closeMobileMenu}>Donate</Link>
+                        <Link className='donate_link' to='/donation-programmes' onClick={closeMobileMenu}>Donate</Link>
                     </li>
                 </ul>
             </nav>

@@ -26,7 +26,7 @@
   position: absolute;
   bottom: -110px;
   right: 15px;
-  height: 450px;
+  height: 500px;
 }
 
 .relief_fund {
@@ -60,36 +60,12 @@
   padding: 7px 0px;
 }
 
-@media screen and (max-width: 960px) {
+@media screen and (max-width: 1065px) {
   .mainContainer {
-    height: 500px;
-  }
-  .relief_fund {
-    padding: 20px 0px;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-  }
-  .relief_fund p {
-    min-width: 300px;
+    min-height: 350px;
   }
   .ImageContaier {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-  }
-  .ImageContaier .covidImage {
-    position: relative;
-    display: block;
-    bottom: 80px;
-    height: 320px;
-    width: 80%;
+    display: none;
   }
 }
 /*# sourceMappingURL=index.module.css.map */

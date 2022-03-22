@@ -1,0 +1,44 @@
+@import "../../../Utils/_variables.scss";
+
+.container {
+    background-color: white;
+    margin-top: 5vh;
+}
+
+.card_container {
+    min-height: 420px;
+    display: flex;
+    align-items: center;
+
+    .card {
+        padding: 35px;
+        display: flex;
+        background-color: $theme-home-cards-bg;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.5s ease-in-out;
+        opacity: 0.8;
+        &:hover {
+            opacity: 1;
+        }
+    }
+    .rightColumn {
+        margin-left: 20px;
+        h4 {
+            color: $theme-white;
+        }
+        p {
+            padding: 20px 0px;
+            color: $theme-card-green;
+        }
+    }
+    .marginRight {
+        margin: 20px;
+    }
+    .feePayment {
+        margin: 20px;
+    }
+    .imgcolor {
+        color: white;
+    }
+}

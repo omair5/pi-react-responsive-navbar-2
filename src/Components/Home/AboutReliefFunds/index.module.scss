@@ -26,16 +26,23 @@
             padding: 35px;
             display: flex;
             background-color: $theme-home-cards-bg;
+            border-radius: 5px;
+            cursor: pointer;
         }
         .rightColumn {
             margin-left: 20px;
-            h4 {
+            h2 {
                 color: $theme-white;
             }
             p {
                 padding: 20px 0px;
                 color: $theme-card-green;
             }
+        }
+        .creditCard {
+            color: white;
+            font-size: 60px;
+            margin-top: -5px;
         }
     }
     .feePayment {
@@ -63,6 +70,12 @@
 }
 
 @media screen and (max-width: 960px) {
+    .mainContainer {
+        .wrapper {
+            margin: 6vh auto;
+        }
+    }
+
     .feePayment {
         margin-left: 0px !important;
         margin-top: 20px;

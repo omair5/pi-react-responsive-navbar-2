@@ -1,0 +1,58 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;500;600&display=swap");
+.container {
+  background-color: white;
+  margin-top: 5vh;
+}
+
+.card_container {
+  min-height: 420px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.card_container .card {
+  padding: 35px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: #008e4e;
+  border-radius: 5px;
+  cursor: pointer;
+  -webkit-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  opacity: 0.8;
+}
+
+.card_container .card:hover {
+  opacity: 1;
+}
+
+.card_container .rightColumn {
+  margin-left: 20px;
+}
+
+.card_container .rightColumn h4 {
+  color: #fbfbfc;
+}
+
+.card_container .rightColumn p {
+  padding: 20px 0px;
+  color: #91e9c1;
+}
+
+.card_container .marginRight {
+  margin: 20px;
+}
+
+.card_container .feePayment {
+  margin: 20px;
+}
+
+.card_container .imgcolor {
+  color: white;
+}
+/*# sourceMappingURL=index.module.css.map */

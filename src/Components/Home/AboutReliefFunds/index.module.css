@@ -31,19 +31,27 @@
   display: -ms-flexbox;
   display: flex;
   background-color: #008e4e;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .mainContainer .card_container .rightColumn {
   margin-left: 20px;
 }
 
-.mainContainer .card_container .rightColumn h4 {
+.mainContainer .card_container .rightColumn h2 {
   color: #fbfbfc;
 }
 
 .mainContainer .card_container .rightColumn p {
   padding: 20px 0px;
   color: #91e9c1;
+}
+
+.mainContainer .card_container .creditCard {
+  color: white;
+  font-size: 60px;
+  margin-top: -5px;
 }
 
 .mainContainer .feePayment {
@@ -73,6 +81,9 @@
 }
 
 @media screen and (max-width: 960px) {
+  .mainContainer .wrapper {
+    margin: 6vh auto;
+  }
   .feePayment {
     margin-left: 0px !important;
     margin-top: 20px;

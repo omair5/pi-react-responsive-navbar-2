@@ -1,0 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;500;600&display=swap");
+.mainContainer {
+  background-color: #f0eff4;
+  min-height: calc(100vh - 155px);
+  overflow: hidden;
+}
+
+.mainContainer .headingWrapper {
+  margin-top: 8vh;
+}
+
+.mainContainer .headingWrapper h5 {
+  font-size: 16px;
+}
+
+.mainContainer .headingWrapper h1 {
+  padding: 15px 0px;
+  font-size: 48px;
+  font-size: clamp(1.5rem, 6.8vw, 3rem);
+  font-weight: 400;
+}
+/*# sourceMappingURL=index.module.css.map */
