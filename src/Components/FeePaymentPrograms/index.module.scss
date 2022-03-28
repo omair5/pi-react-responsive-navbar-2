@@ -1,0 +1,19 @@
+@import "../../../Utils/_variables.scss";
+
+.mainContainer {
+    background-color: $theme-payment-container;
+    min-height: calc(100vh - 155px);
+    overflow: hidden;
+    .headingWrapper {
+        margin-top: 8vh;
+        h5 {
+            font-size: 16px;
+        }
+        h1 {
+            padding: 15px 0px;
+            font-size: 48px;
+            font-size: clamp(1.5rem, 6.8vw, 3rem);
+            font-weight: 400;
+        }
+    }
+}

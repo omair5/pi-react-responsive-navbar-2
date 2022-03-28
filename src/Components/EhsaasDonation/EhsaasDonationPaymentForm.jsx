@@ -80,7 +80,6 @@ const EhsaasDonationPaymentForm = () => {
             .oneOf([true], 'You must accept the terms and conditions.'),
         mobileNumber: Yup.string()
             .min(11, 'Incorrect Mobile Number')
-            .required('This Field is Required'),
     })
 
     // HANDLE SUBMIT
@@ -265,7 +264,7 @@ const EhsaasDonationPaymentForm = () => {
                                     customInput={InputField}
                                     className={styles.inputField}
                                     name="mobileNumber"
-                                    placeholder='Mobile Number *'
+                                    placeholder='Mobile Number (optional)'
                                     inputMode='numeric'
                                     onValueChange={(e) => {
                                         formikProps.setFieldValue('mobileNumber', e.value)

@@ -1,10 +1,10 @@
 import React from 'react'
 import styles from './index.module.css'
 import Container from '@material-ui/core/Container';
-import DonationCardContainer from '../DonationCardContainer/DonationCardContainer';
+import ProgrammesPageCardLayout from '../../Utils/ProgrammesPageCardLayout';
+import { DonationProgrammeCardData } from '../../JsUtils/DonationProgrammeCardData'
 
-
-const MainWrapper = () => {
+const DonationProgramsWrapper = () => {
     return (
         <div className={styles.mainContainer}>
             <Container maxWidth="lg" className={styles.headingWrapper}>
@@ -12,9 +12,9 @@ const MainWrapper = () => {
                 <h1>Donation Programmes</h1>
             </Container>
 
-            <DonationCardContainer />
+            <ProgrammesPageCardLayout cardData={DonationProgrammeCardData} />
         </div>
     );
 }
 
-export default React.memo(MainWrapper);
+export default React.memo(DonationProgramsWrapper);

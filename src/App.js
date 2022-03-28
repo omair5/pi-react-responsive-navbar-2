@@ -18,6 +18,8 @@ const PaymentConfirmation = React.lazy(() => import('./Pages/PaymentConfirmation
 const Donate = React.lazy(() => import('./Pages/Donate'));
 const DonationPrograms = React.lazy(() => import('./Pages/DonationPrograms'));
 const EhsaasDonationPaymentForm = React.lazy(() => import('./Pages/EhsaasDonation'));
+const FeePaymentPrograms = React.lazy(() => import('./Pages/FeePaymentPrograms'));
+
 
 
 
@@ -44,6 +46,7 @@ function App() {
           <Route path="/donate-to-pm-relief-fund" element={<Donate />} />
           <Route path="/donation-programmes" element={<DonationPrograms />} />
           <Route path="/donate-to-ehsaas-programme" element={<EhsaasDonationPaymentForm />} />
+          <Route path="/fee-payment-programmes" element={<FeePaymentPrograms />} />
         </Routes>
       </Suspense>
       <ToastContainer theme='colored' autoClose={8000} bodyClassName="toastBody" limit={5} />

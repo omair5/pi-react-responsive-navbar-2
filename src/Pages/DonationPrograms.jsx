@@ -1,12 +1,12 @@
 import React from 'react'
-import MainWrapper from '../Components/DonationPrograms/MainWrapper/MainWrapper';
+import DonationProgramWrapper from '../Components/DonationPrograms/DonationProgramsWrapper';
 import Layout from '../Layout';
 
 const DonationPrograms = () => {
     return (
         <Layout>
             <div>
-                <MainWrapper />
+                <DonationProgramWrapper />
             </div>
         </Layout>
     );

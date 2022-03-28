@@ -20,3 +20,14 @@ input[type="number"]::-webkit-outer-spin-button {
     font-size: 14px;
     line-height: 20px;
 }
+
+::-moz-selection {
+    /* Code for Firefox */
+    color: white;
+    background: #009a54;
+}
+
+::selection {
+    color: white;
+    background: #009a54;
+}

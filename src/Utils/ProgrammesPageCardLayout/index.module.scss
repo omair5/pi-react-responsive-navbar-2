@@ -1,8 +1,9 @@
 @import "../../../Utils/_variables.scss";
 
 .container {
-    background-color: white;
-    margin-top: 5vh;
+    margin-top: 4vh;
+    min-height: 56vh;
+    background: $theme-white;
 }
 
 .card_container {
