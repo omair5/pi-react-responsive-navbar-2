@@ -16,8 +16,8 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
 import { toast } from 'react-toastify';
 import NumberFormat from 'react-number-format';
-import { FormHelperText } from '@material-ui/core';
-
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
 
 const useStyles = makeStyles((theme) => ({
     backdrop: {
@@ -32,6 +32,9 @@ const EhsaasDonationPaymentForm = () => {
     const classes = useStyles();
     const [backdrop, setbackdrop] = React.useState(false);
     const [openUserConsentDialog, setopenUserConsentDialog] = useState(false)
+    const [phoneInput, setPhoneInput] = useState('')
+    const [phoneCountry, setphoneCountry] = useState('pk')
+
 
     // HANDLING ERRORS FOR PAYMENT GATEWAY 
     window.handlePgCancel = () => {
@@ -55,31 +58,38 @@ const EhsaasDonationPaymentForm = () => {
         setopenUserConsentDialog(false);
     };
 
-
     // FORMIK INITIAL VALUES
     const initialValues = {
-        name: '',
+        firstName: '',
+        lastName: '',
         email: '',
-        country: 'Pakistan',
+        country: 'pk',
         currency: 'PKR',
         amount: '',
         mobileNumber: '',
+        cnic: '',
         acceptedTerms: false,
     }
 
     // YUP VALIDATION SCHEMA
     const validationSchema = Yup.object({
-        name: Yup.string()
+        firstName: Yup.string()
+            .min(3, 'Name Should Have Atleast 3 Characters')
+            .required('Valid Name is Required'),
+        lastName: Yup.string()
             .min(3, 'Name Should Have Atleast 3 Characters')
             .required('Valid Name is Required'),
         email: Yup.string()
             .email('Invalid email address'),
+        country: Yup.string()
+            .required('Country Field is Required'),
         amount: Yup.string().required('Valid Amount is Required'),
+        cnic: Yup.string()
+            .required('This Field is Required')
+            .min(13, 'Invalid CNIC'),
         acceptedTerms: Yup.boolean()
             .required('Required')
             .oneOf([true], 'You must accept the terms and conditions.'),
-        mobileNumber: Yup.string()
-            .min(11, 'Incorrect Mobile Number')
     })
 
     // HANDLE SUBMIT
@@ -88,20 +98,20 @@ const EhsaasDonationPaymentForm = () => {
         formatAmount = Number(formatAmount)
 
         setbackdrop(true)
-
         const body = {
-            country: values.country,
+            country: CountryList.find((val) => val.code === values?.country).name,
             currency: values.currency,
             paymentReqeustDetail: [
                 {
                     amount: formatAmount,
-                    cnic: "",
-                    contactNumber: `92${values.mobileNumber.slice(1)}`,
+                    cnic: values?.cnic,
+                    contactNumber: phoneInput,
                     cprNumber: "",
                     date: new Date().toJSON().slice(0, 19),
                     dateOfVisit: new Date().toJSON().slice(0, 19),
                     email: values.email,
-                    name: values.name,
+                    name: values.firstName,
+                    lastName: values.lastName,
                     overseasCardNumber: "",
                     passportNumber: "",
                     serialNoGovtIssue: "",
@@ -111,6 +121,8 @@ const EhsaasDonationPaymentForm = () => {
             transactionType: "Ehsaas",
             requestDate: new Date().toJSON().slice(0, 19),
         }
+
+        console.log(body)
 
         axios.post(apiURL, body).then((res) => {
             setbackdrop(false)
@@ -152,7 +164,7 @@ const EhsaasDonationPaymentForm = () => {
                 sessionStorage.setItem('amount', totlalAmount)
                 sessionStorage.setItem('currency', currency)
                 sessionStorage.setItem('description', `DONATION IN EHSAAS PROGRAMME 2022`)
-                sessionStorage.setItem('transactionType', 'Donation')
+                sessionStorage.setItem('transactionType', 'Ehsaas')
                 sessionStorage.setItem('id', orderId)
             }
 
@@ -169,7 +181,6 @@ const EhsaasDonationPaymentForm = () => {
         )
     }
 
-
     return (
         <div className={styles.mainContainer}>
             <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={HandleSubmit}>
@@ -177,28 +188,44 @@ const EhsaasDonationPaymentForm = () => {
                     <Form>
                         <div className={styles.heading}>Your Details</div>
                         <Grid >
-                            {/* NAME*/}
+                            {/* FIRST NAME*/}
                             <Grid item xs={12} sm={12} md={6} lg={4}>
                                 <InputField
-                                    name="name"
+                                    name="firstName"
                                     type="text"
-                                    placeholder="Full Name *"
+                                    placeholder="First Name *"
                                     className={styles.inputField}
                                     maxLength={50}
                                     onChange={(e) => {
                                         if (e.target.value.match(/^[a-zA-Z ]*$/)) {
-                                            formikProps.setFieldValue('name', e.target.value)
+                                            formikProps.setFieldValue('firstName', e.target.value)
                                         }
                                     }}
                                 />
                             </Grid>
 
-                            {/* EMAIL */}
+                            {/* LAST NAME*/}
+                            <Grid item xs={12} sm={12} md={6} lg={4}>
+                                <InputField
+                                    name="lastName"
+                                    type="text"
+                                    placeholder="Last Name *"
+                                    className={styles.inputField}
+                                    maxLength={50}
+                                    onChange={(e) => {
+                                        if (e.target.value.match(/^[a-zA-Z ]*$/)) {
+                                            formikProps.setFieldValue('lastName', e.target.value)
+                                        }
+                                    }}
+                                />
+                            </Grid>
+
+                            {/* EMAIL (optional) */}
                             <Grid item xs={12} sm={12} md={6} lg={4}>
                                 <InputField
                                     name="email"
                                     type="email"
-                                    placeholder="Email Address"
+                                    placeholder="Email Address (Optional)"
                                     className={styles.inputField}
                                     maxLength={50}
 
@@ -208,14 +235,39 @@ const EhsaasDonationPaymentForm = () => {
                             {/* COUNTRY */}
                             <Grid item xs={12} sm={12} md={6} lg={4}>
                                 {/* country */}
-                                <SelectField name="country" className={styles.inputField} >
-                                    <option value='Pakistan'>Pakistan</option>
+                                <SelectField
+                                    name="country"
+                                    HandleOptionSelect={(e) => {
+                                        formikProps.setFieldValue('country', e.target.value)
+                                        setphoneCountry(e.target.value)
+                                    }}
+                                    className={styles.inputField}
+                                >
                                     {
                                         CountryList.map((country) => (
-                                            <option value={country} key={uuidv4()}>{country}</option>
+                                            <option value={country.code} id={country.code} key={uuidv4()} >{country.name}</option>
                                         ))
                                     }
                                 </SelectField>
+                            </Grid>
+
+                            {/* MOBILE NUMBER (OPTIONAL) */}
+                            <Grid item xs={12} sm={12} md={6} lg={4}>
+                                <PhoneInput
+                                    country={phoneCountry}
+                                    value={phoneInput}
+                                    countryCodeEditable={false}
+                                    inputClass={styles.inputField}
+                                    onChange={
+                                        (phone, data) => {
+                                            setPhoneInput(phone)
+                                            formikProps.setFieldValue('country', data.countryCode)
+                                        }
+                                    }
+                                    inputProps={{
+                                        inputMode: 'numeric'
+                                    }}
+                                />
                             </Grid>
 
                             {/* CURRENCY */}
@@ -227,6 +279,20 @@ const EhsaasDonationPaymentForm = () => {
                                     placeholder="Currency"
                                     className={`${styles.inputField}`}
                                     disabled={true}
+                                />
+                            </Grid>
+
+                            <Grid item xs={12} sm={12} md={6} lg={4}>
+                                <NumberFormat
+                                    format="#####-#######-#"
+                                    customInput={InputField}
+                                    name='cnic'
+                                    placeholder='CNIC / NICOP *'
+                                    className={styles.inputField}
+                                    inputMode='numeric'
+                                    onValueChange={(e) => {
+                                        formikProps.setFieldValue('cnic', e.value)
+                                    }}
                                 />
                             </Grid>
 
@@ -256,42 +322,6 @@ const EhsaasDonationPaymentForm = () => {
                                     }}
                                 />
                             </Grid>
-
-                            {/* MOBILE NUMBER */}
-                            <Grid item xs={12} sm={12} md={6} lg={4}>
-                                <NumberFormat
-                                    format="###########"
-                                    customInput={InputField}
-                                    className={styles.inputField}
-                                    name="mobileNumber"
-                                    placeholder='Mobile Number (optional)'
-                                    inputMode='numeric'
-                                    onValueChange={(e) => {
-                                        formikProps.setFieldValue('mobileNumber', e.value)
-
-                                    }}
-
-                                    isAllowed={(values) => {
-                                        const { value } = values;
-                                        if (value[0] === undefined) {
-                                            return true
-                                        }
-                                        if (value[0] !== "0") {
-                                            return false;
-                                        }
-                                        if (value[1] !== undefined) {
-                                            if (value[1] !== "3") {
-                                                return false
-                                            }
-                                        }
-                                        return true;
-                                    }}
-
-                                />
-                                <FormHelperText>e.g: 03XXXXXXXXX</FormHelperText>
-                            </Grid>
-
-
                         </Grid>
 
                         {/* checkbox */}

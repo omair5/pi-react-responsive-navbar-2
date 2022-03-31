@@ -133,7 +133,6 @@ export default function PaymentConfirmationTable() {
 
     // API POST REQUEST TO SUBMIT FEE
     const handleFeePayment = () => {
-        console.log(values)
         setbackdrop(true)
         let currency;
         const country = values[0].country;
@@ -148,6 +147,7 @@ export default function PaymentConfirmationTable() {
         const mappedUserDetailsArray = values.map(val => (
             {
                 name: val.fullName,
+                lastName: '',
                 cnic: val.cnic,
                 email: val.email,
                 contactNumber: `92${val.mobileNumber.slice(1)}`,

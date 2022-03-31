@@ -19,9 +19,6 @@ import { toast } from 'react-toastify';
 import NumberFormat from 'react-number-format';
 
 
-
-
-
 const useStyles = makeStyles((theme) => ({
     backdrop: {
         zIndex: theme.zIndex.drawer + 1,
@@ -62,12 +59,11 @@ const DonationPaymentForm = () => {
         setopenUserConsentDialog(false);
     };
 
-
     // FORMIK INITIAL VALUES
     const initialValues = {
         name: '',
         email: '',
-        country: 'Pakistan',
+        country: 'pk',
         currency: 'PKR',
         amount: '',
         acceptedTerms: false,
@@ -94,7 +90,7 @@ const DonationPaymentForm = () => {
         setbackdrop(true)
 
         const body = {
-            country: values.country,
+            country: CountryList.find((val) => val.code === values?.country).name,
             currency: values.currency,
             paymentReqeustDetail: [
                 {
@@ -106,6 +102,7 @@ const DonationPaymentForm = () => {
                     dateOfVisit: new Date().toJSON().slice(0, 19),
                     email: values.email,
                     name: values.name,
+                    lastName: '',
                     overseasCardNumber: "",
                     passportNumber: "",
                     serialNoGovtIssue: "",
@@ -115,7 +112,7 @@ const DonationPaymentForm = () => {
             transactionType: "Donation",
             requestDate: new Date().toJSON().slice(0, 19),
         }
-
+        console.log(body)
         axios.post(apiURL, body).then((res) => {
             setbackdrop(false)
             if (res.status === 200) {
@@ -212,11 +209,16 @@ const DonationPaymentForm = () => {
                             {/* COUNTRY */}
                             <Grid item xs={12} sm={12} md={6} lg={4}>
                                 {/* country */}
-                                <SelectField name="country" className={styles.inputField} >
-                                    <option value='Pakistan'>Pakistan</option>
+                                <SelectField
+                                    name="country"
+                                    className={styles.inputField}
+                                    HandleOptionSelect={(e) => {
+                                        formikProps.setFieldValue('country', e.target.value)
+                                    }}
+                                >
                                     {
                                         CountryList.map((country) => (
-                                            <option value={country} key={uuidv4()}>{country}</option>
+                                            <option value={country.code} id={country.code} key={uuidv4()} >{country.name}</option>
                                         ))
                                     }
                                 </SelectField>

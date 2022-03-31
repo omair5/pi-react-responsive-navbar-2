@@ -69,14 +69,14 @@ export const CheckBoxField = ({ children, ...props }) => {
 
 // --------------------SELECT
 
-export const SelectField = ({ label, ...props }) => {
+export const SelectField = ({ label, HandleOptionSelect, ...props }) => {
     const [field, meta] = useField(props);
     const classes = useStyles();
     const { values, setFieldValue } = useFormikContext()
 
     // this effect will run when country select is changed
     useEffect(() => {
-        if (values.country !== 'Pakistan') {
+        if (values.country !== 'pk') {
             setFieldValue('currency', 'USD')
         }
         else {
@@ -93,7 +93,7 @@ export const SelectField = ({ label, ...props }) => {
                     </label>
                 </strong>
             </div>
-            <select {...field} {...props} />
+            <select {...field} {...props} onChange={HandleOptionSelect} />
             {meta.touched && meta.error ? (
                 <div className={classes.error}>{meta.error}</div>
             ) : null}

@@ -51,13 +51,13 @@ function Navbar() {
                     {/* this will be shown on small screen */}
                     <div className={'show-dropdown-for-mobile'} >
 
-                        <li className='nav-item'>
+                        {/* <li className='nav-item'>
                             <Link to='/donate-to-pm-relief-fund' className='nav-links' onClick={closeMobileMenu}>Donate in PM Relief Fund COVID-19</Link>
                         </li>
 
                         <li className='nav-item'>
                             <Link to='/donate-to-ehsaas-programme' className='nav-links' onClick={closeMobileMenu}> Donate In Ehsaas Program</Link>
-                        </li>
+                        </li> */}
 
                         <li className='nav-item'>
                             <Link to='/booster-fee-payment' className='nav-links' onClick={closeMobileMenu}>Covid Vaccination Booster Fee Payment</Link>

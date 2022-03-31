@@ -15,7 +15,7 @@ function Dropdown() {
             className={click ? 'dropdown-menu clicked' : 'dropdown-menu'}
         >
             <div>
-                <Link
+                {/* <Link
                     className='dropdown-link'
                     to='/donate-to-pm-relief-fund'
                     onClick={() => setClick(false)}
@@ -28,7 +28,7 @@ function Dropdown() {
                     onClick={() => setClick(false)}
                 >
                     Donate In Ehsaas Program
-                </Link>
+                </Link> */}
                 <Link
                     className='dropdown-link'
                     to='/booster-fee-payment'
