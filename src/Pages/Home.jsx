@@ -19,7 +19,7 @@ const Home = () => {
 
   // CHECKING SUCCESS RESPONSE IN PARAMS
   useEffect(() => {
-    if (location.search.includes('resultIndicator') && location.search.includes('sessionVersion') && sessionStorage.getItem('amount') && sessionStorage.getItem('currency') && sessionStorage.getItem('description')) {
+    if (location.search.includes('resultIndicator') && sessionStorage.getItem('amount') && sessionStorage.getItem('currency') && sessionStorage.getItem('description')) {
       setopenSuccessDialog(true)
     }
   }, [location])
@@ -37,7 +37,7 @@ const Home = () => {
         if (res.data.code === 200) {
           let DownloadElement = document.createElement("a");
           DownloadElement.href = "data:application/pdf;base64," + res.data.data;
-          DownloadElement.download = "Receipt.pdf";
+          DownloadElement.download = `${sessionStorage.getItem('transactionType')} Receipt.pdf`;
           DownloadElement.click();
         }
         else {

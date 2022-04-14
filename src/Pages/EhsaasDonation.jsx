@@ -1,7 +1,7 @@
 import React from 'react'
 import Layout from '../Layout';
 import ImageHeaderForPaymentForms from '../Utils/ImageHeaderForPaymentForms'
-import DonateImage from '../Assets/Images/ehsaas-header-image.png'
+import DonateImage from '../Assets/Images/ehsaas-header-image.jpg'
 import LayoutForPaymentForms from '../Utils/LayoutForPaymentForms';
 import EhsaasDonationPaymentForm from '../Components/EhsaasDonation/EhsaasDonationPaymentForm';
 

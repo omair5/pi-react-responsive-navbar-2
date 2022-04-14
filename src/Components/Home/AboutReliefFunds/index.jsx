@@ -33,7 +33,7 @@ const AboutReliefFunds = () => {
                                     <img src={Hands} alt="donate logo" />
                                 </div>
                                 <div className={styles.rightColumn}>
-                                    <h2>DONATION</h2>
+                                    <h2>NBP Donations</h2>
                                     <p>Through this fund, we are trying to reach out as many needy people as possible.</p>
                                     {/* this is custom button component which accepts following props (innerText, type, HandleButtonClick, color, bgColor, width )*/}
                                     <Button innerText='Donate Now' color='#0d1821' bgColor='white' />
@@ -50,7 +50,7 @@ const AboutReliefFunds = () => {
                                     <CreditCardIcon className={styles.creditCard} />
                                 </div>
                                 <div className={styles.rightColumn}>
-                                    <h2>FEE PAYMENT</h2>
+                                    <h2>NBP Payments</h2>
                                     <p>Through this fund, we are trying to reach out as many needy people as possible.</p>
                                     {/* this is custom button component which accepts following props (innerText, type, HandleButtonClick, color, bgColor, width ) */}
                                     <Button innerText='Fee Payment' color='#0d1821' bgColor='white' />

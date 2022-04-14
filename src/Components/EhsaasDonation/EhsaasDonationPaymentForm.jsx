@@ -13,17 +13,66 @@ import { base_url } from "../../Config"
 import axios from 'axios';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { makeStyles } from '@material-ui/core/styles';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 import { toast } from 'react-toastify';
 import NumberFormat from 'react-number-format';
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
+// import Table from '@material-ui/core/Table';
+// import TableBody from '@material-ui/core/TableBody';
+// import TableCell from '@material-ui/core/TableCell';
+// import TableContainer from '@material-ui/core/TableContainer';
+// import TableHead from '@material-ui/core/TableHead';
+// import TableRow from '@material-ui/core/TableRow';
+
+
+// const StyledTableCell = withStyles((theme) => ({
+//     head: {
+//         color: '#0d1821',
+//         fontSize: '18px',
+//         fontWeight: '600'
+//     },
+//     body: {
+//         fontSize: 14,
+//     },
+// }))(TableCell);
+
+// const StyledTableRow = withStyles((theme) => ({
+//     root: {
+//         '&:nth-of-type(odd)': {
+//             backgroundColor: '#f0eff4',
+//         },
+//     },
+// }))(TableRow);
+
 
 const useStyles = makeStyles((theme) => ({
     backdrop: {
         zIndex: theme.zIndex.drawer + 1,
         color: '#fff',
     },
+    greenRow: {
+        backgroundColor: '#009a54',
+        width: '100%',
+        height: '30px'
+    },
+    totalAmount: {
+        backgroundColor: '#cfccdc',
+        width: '100%',
+        height: '10vh',
+        display: 'flex',
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        padding: '0px 15px',
+        '& p': {
+            fontSize: '12px',
+            fontWeight: 600,
+            marginRight: '10px'
+        }
+    },
+    paymentSummary: {
+        margin: '7vh auto'
+    }
 }));
 
 
@@ -331,9 +380,36 @@ const EhsaasDonationPaymentForm = () => {
                             </span>
                         </CheckBoxField>
 
+                        {/* <div className={classes.paymentSummary}>
+                            <div className={classes.greenRow}></div>
+                            <TableContainer >
+                                <Table className={classes.table} aria-label="customized table">
+
+                                    <TableHead>
+                                        <TableRow>
+                                            <StyledTableCell>Amount</StyledTableCell>
+                                            <StyledTableCell >Service Charges</StyledTableCell>
+                                            <StyledTableCell align="right">Total</StyledTableCell>
+
+                                        </TableRow>
+                                    </TableHead>
+
+                                    <TableBody>
+                                        <StyledTableRow>
+                                            <StyledTableCell component="th" scope="row">
+                                                -
+                                            </StyledTableCell>
+                                            <StyledTableCell >cnic/nicop</StyledTableCell>
+                                            <StyledTableCell align="right">amount</StyledTableCell>
+                                        </StyledTableRow>
+                                    </TableBody>
+                                </Table>
+                            </TableContainer>
+                        </div> */}
+
                         <Grid item xs={12} sm={12} md={6} lg={4} className={styles.buttonContainer}>
 
-                            <button className={styles.buttonStyle} type='submit'  >
+                            <button className={styles.buttonStyle} type='submit'>
                                 Proceed to Pay
                             </button>
                         </Grid>

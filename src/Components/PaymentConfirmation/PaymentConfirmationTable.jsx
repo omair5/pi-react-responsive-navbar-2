@@ -243,7 +243,6 @@ export default function PaymentConfirmationTable() {
                                         <StyledTableCell>Name</StyledTableCell>
                                         <StyledTableCell >CNIC/NICOP</StyledTableCell>
                                         <StyledTableCell align="right">Amount</StyledTableCell>
-
                                     </TableRow>
                                 </TableHead>
 
